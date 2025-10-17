@@ -3,6 +3,8 @@ package com.mycompany.app;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Test class para RF-03 - Gestión de contactos
@@ -117,4 +119,5 @@ public class ContactoTest {
         assertTrue(destinatario.getEmail().contains("@"));
     }
     
+
 }
