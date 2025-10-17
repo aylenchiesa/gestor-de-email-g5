@@ -16,5 +16,9 @@ public class Email {
   public String getBandeja() { return bandeja; }
   public String getRemitente() { return remitente; }
 
+  public int getId() {
+    throw new UnsupportedOperationException("Unimplemented method 'getId'");
+  }
+
     
 }

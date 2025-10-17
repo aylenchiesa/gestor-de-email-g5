@@ -32,9 +32,7 @@ public class EmailTest {
         }
     }
     
-    /**
-     * Test para filtrar emails por dominio
-     */
+// filtrar emails por dominio
     @Test
     void testFiltrarEmailsPorDominio() {
         // Crear lista de emails de prueba

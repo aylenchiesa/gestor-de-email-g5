@@ -3,13 +3,6 @@ package com.mycompany.app;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.List;
-import java.util.ArrayList;
-
-/**
- * Test class para RF-03 - Gestión de contactos
- * Prueba la funcionalidad de crear, editar y eliminar contactos
- */
 public class ContactoTest {
     
     private Contacto contacto;

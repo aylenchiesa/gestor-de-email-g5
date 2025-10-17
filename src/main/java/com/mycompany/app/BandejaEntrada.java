@@ -1,40 +1,39 @@
+package com.mycompany.app;
+
 import java.util.ArrayList;
 import java.util.List;
 
-package com.mycompany.app;
-
-
 public class BandejaEntrada {
-  private List<Correo> correos;
+  private List<Email> emails;
   
   public BandejaEntrada() {
-    this.correos = new ArrayList<>();
+    this.emails = new ArrayList<>();
   }
   
-  public void agregarCorreo(Correo correo) {
-    correos.add(correo);
+  public void agregarEmail(Email email) {
+    emails.add(email);
   }
   
-  public void eliminarCorreo(Correo correo) {
-    correos.remove(correo);
+  public void eliminarEmail(Email email) {
+    emails.remove(email);
   }
   
-  public List<Correo> getCorreos() {
-    return new ArrayList<>(correos);
+  public List<Email> getEmails() {
+    return new ArrayList<>(emails);
   }
   
-  public Correo buscarCorreoPorId(int id) {
-    return correos.stream()
-        .filter(correo -> correo.getId() == id)
+  public Email buscarEmailPorId(int id) {
+    return emails.stream()
+        .filter(email -> email.getId() == id)
         .findFirst()
         .orElse(null);
   }
   
   public void limpiarBandeja() {
-    correos.clear();
+    emails.clear();
   }
   
-  public int getCantidadCorreos() {
-    return correos.size();
+  public int getCantidadEmails() {
+    return emails.size();
   }
 }
