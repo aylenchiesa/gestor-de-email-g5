@@ -53,14 +53,6 @@ public class Email {
       return leido;
     }
       
-    public boolean isFavorito() {
-      return favorito;
-    }
-      
-    public boolean isEliminado() {
-      return eliminado;
-    }
-      
     public boolean isBorrador() {
       return borrador;
     }

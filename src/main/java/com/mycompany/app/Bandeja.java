@@ -3,14 +3,14 @@ package com.mycompany.app;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BandejaEntrada {
+public class Bandeja {
   private List<Email> emails;
   
-  public BandejaEntrada() {
+  public Bandeja() {
     this.emails = new ArrayList<>();
   }
   
-  public void agregarEmail(Email email) {
+  public void agregarEmail(Email email) { //o sea recibir
     emails.add(email);
   }
   
@@ -36,4 +36,8 @@ public class BandejaEntrada {
   public int getCantidadEmails() {
     return emails.size();
   }
+
+  
+
+  
 }

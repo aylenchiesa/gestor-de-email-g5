@@ -1,10 +1,10 @@
 package com.mycompany.app;
 
-import java.util.List;
+//import java.util.List;
 
 public class Filtro {
   //filtra emails no leídos
-    public List<Email> noLeidosEnInbox(List<Email> emails) {
+   /*/ public List<Email> noLeidosEnInbox(List<Email> emails) {
         return emails.stream()
             .filter(email -> !email.isLeido() && email.getBandeja().equals("INBOX"))
             .toList();
@@ -15,5 +15,5 @@ public class Filtro {
         return emails.stream()
             .filter(email -> email.getRemitente().endsWith("@" + dominio))
             .toList();
-    }
+    }*/
 }
