@@ -1,24 +1,81 @@
 package com.mycompany.app;
 
-public class Email {
- 
-  private boolean leido;
-  private String bandeja;
-  private String remitente;
-  
-  public Email(boolean leido, String bandeja, String remitente) {
-      this.leido = leido;
-      this.bandeja = bandeja;
-      this.remitente = remitente;
-  }
-  
-  public boolean isLeido() { return leido; }
-  public String getBandeja() { return bandeja; }
-  public String getRemitente() { return remitente; }
+import java.util.ArrayList;
+import java.util.List;
 
-  public int getId() {
+public class Email {
+  
+    private String asunto;
+    private String contenido;
+    private Contacto remitente;
+    private List<Contacto> destinatarios;
+
+    private boolean leido;
+    private boolean favorito;
+    private boolean eliminado;
+    private boolean borrador;
+
+    //constructor
+    public Email(String asunto, String contenido, Contacto remitente) {
+        this.asunto = asunto;
+        this.contenido = contenido;
+        this.remitente = remitente;
+        this.destinatarios = new ArrayList<>();
+        this.leido = false;
+        this.favorito = false;
+        this.eliminado = false;
+        this.borrador = false;
+    }
+
+    //uso básico
+    public void agregarDestinatario(Contacto contacto) {
+        destinatarios.add(contacto);
+    }
+
+    /*public void restaurar() {
+        this.eliminado = false;
+    }*/
+
+    // getters
+    public String getAsunto() {
+      return asunto;
+    }
+
+    public String getContenido() {
+      return contenido;
+    }
+      
+    public Contacto getRemitente() {
+      return remitente;
+    }
+      
+    public List<Contacto> getDestinatarios() {
+      return destinatarios;
+    }
+      
+    public boolean isLeido() {
+      return leido;
+    }
+      
+    public boolean isFavorito() {
+      return favorito;
+    }
+      
+    public boolean isEliminado() {
+      return eliminado;
+    }
+      
+    public boolean isBorrador() {
+      return borrador;
+    }
+
+    @Override
+    public String toString() {
+        return "[Asunto: " + asunto + ", Remitente: " + remitente + ", Leído: " + leido + "]";
+    }
+    
+    public int getId() {
     throw new UnsupportedOperationException("Unimplemented method 'getId'");
   }
 
-    
 }
