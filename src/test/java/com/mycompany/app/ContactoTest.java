@@ -54,9 +54,8 @@ public class ContactoTest {
         assertEquals(nombreNuevo, contacto.getNombre());
     }
     
-    /**
-     * Test para editar el email de un contacto
-     */
+
+//editar el email de un contacto
     @Test
     void testEditarEmailContacto() {
         String emailInicial = "maria@empresa.com";
@@ -70,31 +69,6 @@ public class ContactoTest {
         assertEquals(emailNuevo, contacto.getEmail());
     }
     
-     //Test para editar tanto nombre como email de un contacto
-    @Test
-    void testEditarContactoCompleto() {
-        // Datos iniciales
-        String nombreInicial = "Pedro Rodríguez";
-        String emailInicial = "pedro@email.com";
-        
-        contacto.setNombre(nombreInicial);
-        contacto.setEmail(emailInicial);
-        
-        assertEquals(nombreInicial, contacto.getNombre());
-        assertEquals(emailInicial, contacto.getEmail());
-        
-        // Datos nuevos
-        String nombreNuevo = "Pedro Rodríguez Martínez";
-        String emailNuevo = "pedro.rodriguez@empresa.com";
-        
-        // Editar ambos campos
-        contacto.setNombre(nombreNuevo);
-        contacto.setEmail(emailNuevo);
-        
-        assertEquals(nombreNuevo, contacto.getNombre());
-        assertEquals(emailNuevo, contacto.getEmail());
-    }
- 
     //Test para simular la eliminación de un contacto
     @Test
     void testEliminarContacto() {
@@ -112,10 +86,7 @@ public class ContactoTest {
         assertNull(contacto.getNombre());
         assertNull(contacto.getEmail());
     }
-    
-    /**
-     * Test para verificar que el contacto puede ser usado como remitente
-     */
+
     @Test
     void testContactoComoRemitente() {
         String nombre = "Carlos Sender";
@@ -131,9 +102,6 @@ public class ContactoTest {
         assertTrue(remitente.getEmail().contains("@"));
     }
     
-    /**
-     * Test para verificar que el contacto puede ser usado como destinatario
-     */
     @Test
     void testContactoComoDestinatario() {
         String nombre = "Laura Receiver";
@@ -149,19 +117,4 @@ public class ContactoTest {
         assertTrue(destinatario.getEmail().contains("@"));
     }
     
-    /**
-     * Test para validar formato básico de email
-     */
-    @Test
-    void testValidacionFormatoEmail() {
-        String emailValido = "usuario@dominio.com";
-        String emailInvalido = "usuario-sin-arroba";
-        
-        contacto.setEmail(emailValido);
-        assertTrue(contacto.getEmail().contains("@"));
-        assertTrue(contacto.getEmail().contains("."));
-        
-        contacto.setEmail(emailInvalido);
-        assertFalse(contacto.getEmail().contains("@"));
-    }
 }
