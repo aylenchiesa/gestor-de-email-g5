@@ -11,7 +11,7 @@ public class Contacto {
     public Contacto() {
     }
 
-    public Contacto(String nombre, String email) {
+    public Contacto(String nombre, String email) { //agregar this bandeja de entrada para que cada contacto tenga su propia bandeja
         this.nombre = nombre;
         this.email = email;
     }

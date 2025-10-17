@@ -20,17 +20,15 @@ public class EmailTest {
         Contacto remitente = new Contacto("Remitente 1", "remitente@demo.com");
         Contacto c1 = new Contacto("Contacto 1", "contacto1@demo.com");
 
-        // --- Crear el correo ---
         Email email = new Email("Prueba", "Hola, este es un correo de prueba", remitente);
         email.agregarDestinatario(c1);
 
-        // --- Crear bandeja de entrada del destinatario ---
+        //bandeja de entrada del destinatario
         Bandeja bandejaEntrada = new Bandeja();
 
-        // Simular envío (agregamos el correo a la bandeja del destinatario)
+        //simular que le llega un correo al destinatario
         bandejaEntrada.agregarEmail(email);
 
-        // --- Verificaciones ---
         assertEquals(1, bandejaEntrada.getEmails().size(), "La bandeja debería tener un correo recibido");
         assertEquals("Prueba", bandejaEntrada.getEmails().get(0).getAsunto());
         assertFalse(bandejaEntrada.getEmails().get(0).isLeido(), "El correo recibido debería estar sin leer");
