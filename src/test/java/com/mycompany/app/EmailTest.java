@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 public class EmailTest {
     
-  // filtrar emails no leídos cuya bandeja == INBOX
+  // filtrar emails no leídos en bandeja de entrada o sea inbox
     @Test
     void testFiltrarEmailsNoLeidosEnInbox() {
         // Crear lista de emails de prueba
@@ -24,7 +24,7 @@ public class EmailTest {
         
         List<Email> resultado = noLeidosEnInbox(emails);
         
-        // Verificar que solo devuelve emails no leídos de INBOX
+        //verificar que solo devuelve emails no leídos de INBOX
         assertEquals(2, resultado.size());
         for (Email email : resultado) {
             assertFalse(email.isLeido());
@@ -45,29 +45,25 @@ public class EmailTest {
         
         List<Email> resultadoGmail = porDominio(emails, "gmail.com");
         
-        // Verificar que solo devuelve emails del dominio gmail.com
+        //chequeo que solo devuelve emails del dominio gmail.com
         assertEquals(3, resultadoGmail.size());
         for (Email email : resultadoGmail) {
             assertTrue(email.getRemitente().endsWith("@gmail.com"));
         }
         
-        List<Email> resultadoYahoo = porDominio(emails, "yahoo.com");
-        assertEquals(1, resultadoYahoo.size());
-        assertTrue(resultadoYahoo.get(0).getRemitente().endsWith("@yahoo.com"));
+        List<Email> resultadoUCP = porDominio(emails, "ucp.edu.ar");
+        assertEquals(1, resultadoUCP.size());
+        assertTrue(resultadoUCP.get(0).getRemitente().endsWith("@ucp.edu.ar"));
     }
     
-    /**
-     * Filtra emails no leídos cuya bandeja == INBOX
-     */
+    //filtra emails no leídos
     public List<Email> noLeidosEnInbox(List<Email> emails) {
         return emails.stream()
             .filter(email -> !email.isLeido() && email.getBandeja().equals("INBOX"))
             .toList();
     }
     
-    /**
-     * Filtra emails por dominio del remitente
-     */
+    //filtra emails por dominio del remitente
     public List<Email> porDominio(List<Email> emails, String dominio) {
         return emails.stream()
             .filter(email -> email.getRemitente().endsWith("@" + dominio))
