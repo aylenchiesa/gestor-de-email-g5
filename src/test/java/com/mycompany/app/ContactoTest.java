@@ -33,9 +33,7 @@ public class ContactoTest {
         assertEquals(email, contactoCompleto.getEmail());
     }
     
-    /**
-     * Test para editar el nombre de un contacto
-     */
+  
     @Test
     void testEditarNombreContacto() {
         String nombreInicial = "María García";
@@ -64,7 +62,7 @@ public class ContactoTest {
         assertEquals(emailNuevo, contacto.getEmail());
     }
     
-    //Test para simular la eliminación de un contacto
+
     @Test
     void testEliminarContacto() {
         // Crear contacto con datos

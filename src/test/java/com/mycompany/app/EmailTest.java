@@ -6,12 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
 public class EmailTest {
     
-  // filtrar emails no leídos en bandeja de entrada o sea inbox
+  // filtrar emails no leídos en bandeja de enteada o sea inbox
     @Test
     void testFiltrarEmailsNoLeidosEnInbox() {
         // Crear lista de emails de prueba
@@ -55,19 +56,9 @@ public class EmailTest {
         assertEquals(1, resultadoUCP.size());
         assertTrue(resultadoUCP.get(0).getRemitente().endsWith("@ucp.edu.ar"));
     }
-    
-    //filtra emails no leídos
-    public List<Email> noLeidosEnInbox(List<Email> emails) {
-        return emails.stream()
-            .filter(email -> !email.isLeido() && email.getBandeja().equals("INBOX"))
-            .toList();
-    }
-    
-    //filtra emails por dominio del remitente
-    public List<Email> porDominio(List<Email> emails, String dominio) {
-        return emails.stream()
-            .filter(email -> email.getRemitente().endsWith("@" + dominio))
-            .toList();
-    }
-  
+
+   /*private Predicate<Email> porDominio(String dominio) {
+       return email -> email.getRemitente().endsWith("@" + dominio);
+   }*/
+
 }

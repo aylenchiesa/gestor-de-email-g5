@@ -1,7 +1,7 @@
 package com.mycompany.app;
 
 public class Email {
-  // Clase auxiliar para los tests de filtrado de emails
+ 
   private boolean leido;
   private String bandeja;
   private String remitente;
