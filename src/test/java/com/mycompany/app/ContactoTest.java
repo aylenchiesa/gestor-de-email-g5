@@ -1,0 +1,167 @@
+package com.mycompany.app;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Test class para RF-03 - Gestión de contactos
+ * Prueba la funcionalidad de crear, editar y eliminar contactos
+ */
+public class ContactoTest {
+    
+    private Contacto contacto;
+    
+    @BeforeEach
+    void setUp() {
+        contacto = new Contacto();
+    }
+    
+
+//crear un contacto usando el constructor por defecto
+    @Test
+    void testCrearContactoVacio() {
+        assertNotNull(contacto);
+        assertNull(contacto.getNombre());
+        assertNull(contacto.getEmail());
+    }
+    
+    @Test
+    void testCrearContacto() {
+        String nombre = "Juan Pérez";
+        String email = "juan.perez@email.com";
+        
+        Contacto contactoCompleto = new Contacto(nombre, email);
+        
+        assertNotNull(contactoCompleto);
+        assertEquals(nombre, contactoCompleto.getNombre());
+        assertEquals(email, contactoCompleto.getEmail());
+    }
+    
+    /**
+     * Test para editar el nombre de un contacto
+     */
+    @Test
+    void testEditarNombreContacto() {
+        String nombreInicial = "María García";
+        String nombreNuevo = "María García López";
+        
+        contacto.setNombre(nombreInicial);
+        assertEquals(nombreInicial, contacto.getNombre());
+        
+        // Editar nombre
+        contacto.setNombre(nombreNuevo);
+        assertEquals(nombreNuevo, contacto.getNombre());
+    }
+    
+    /**
+     * Test para editar el email de un contacto
+     */
+    @Test
+    void testEditarEmailContacto() {
+        String emailInicial = "maria@empresa.com";
+        String emailNuevo = "maria.garcia@nuevaempresa.com";
+        
+        contacto.setEmail(emailInicial);
+        assertEquals(emailInicial, contacto.getEmail());
+        
+        // Editar email
+        contacto.setEmail(emailNuevo);
+        assertEquals(emailNuevo, contacto.getEmail());
+    }
+    
+     //Test para editar tanto nombre como email de un contacto
+    @Test
+    void testEditarContactoCompleto() {
+        // Datos iniciales
+        String nombreInicial = "Pedro Rodríguez";
+        String emailInicial = "pedro@email.com";
+        
+        contacto.setNombre(nombreInicial);
+        contacto.setEmail(emailInicial);
+        
+        assertEquals(nombreInicial, contacto.getNombre());
+        assertEquals(emailInicial, contacto.getEmail());
+        
+        // Datos nuevos
+        String nombreNuevo = "Pedro Rodríguez Martínez";
+        String emailNuevo = "pedro.rodriguez@empresa.com";
+        
+        // Editar ambos campos
+        contacto.setNombre(nombreNuevo);
+        contacto.setEmail(emailNuevo);
+        
+        assertEquals(nombreNuevo, contacto.getNombre());
+        assertEquals(emailNuevo, contacto.getEmail());
+    }
+ 
+    //Test para simular la eliminación de un contacto
+    @Test
+    void testEliminarContacto() {
+        // Crear contacto con datos
+        contacto.setNombre("Ana López");
+        contacto.setEmail("ana.lopez@email.com");
+        
+        assertNotNull(contacto.getNombre());
+        assertNotNull(contacto.getEmail());
+        
+        // Simular eliminación estableciendo valores a null
+        contacto.setNombre(null);
+        contacto.setEmail(null);
+        
+        assertNull(contacto.getNombre());
+        assertNull(contacto.getEmail());
+    }
+    
+    /**
+     * Test para verificar que el contacto puede ser usado como remitente
+     */
+    @Test
+    void testContactoComoRemitente() {
+        String nombre = "Carlos Sender";
+        String email = "carlos.sender@email.com";
+        
+        Contacto remitente = new Contacto(nombre, email);
+        
+        // Verificar que los datos son correctos para usar como remitente
+        assertNotNull(remitente.getNombre());
+        assertNotNull(remitente.getEmail());
+        assertEquals(nombre, remitente.getNombre());
+        assertEquals(email, remitente.getEmail());
+        assertTrue(remitente.getEmail().contains("@"));
+    }
+    
+    /**
+     * Test para verificar que el contacto puede ser usado como destinatario
+     */
+    @Test
+    void testContactoComoDestinatario() {
+        String nombre = "Laura Receiver";
+        String email = "laura.receiver@email.com";
+        
+        Contacto destinatario = new Contacto(nombre, email);
+        
+        // Verificar que los datos son correctos para usar como destinatario
+        assertNotNull(destinatario.getNombre());
+        assertNotNull(destinatario.getEmail());
+        assertEquals(nombre, destinatario.getNombre());
+        assertEquals(email, destinatario.getEmail());
+        assertTrue(destinatario.getEmail().contains("@"));
+    }
+    
+    /**
+     * Test para validar formato básico de email
+     */
+    @Test
+    void testValidacionFormatoEmail() {
+        String emailValido = "usuario@dominio.com";
+        String emailInvalido = "usuario-sin-arroba";
+        
+        contacto.setEmail(emailValido);
+        assertTrue(contacto.getEmail().contains("@"));
+        assertTrue(contacto.getEmail().contains("."));
+        
+        contacto.setEmail(emailInvalido);
+        assertFalse(contacto.getEmail().contains("@"));
+    }
+}
