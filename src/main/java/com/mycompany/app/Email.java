@@ -10,9 +10,7 @@ public class Email {
     private Contacto remitente;
     private List<Contacto> destinatarios;
 
-    private boolean leido;
-    private boolean favorito;
-    private boolean eliminado;
+    private boolean leido; //por defecto falso
     private boolean borrador;
 
     //constructor
@@ -21,10 +19,8 @@ public class Email {
         this.contenido = contenido;
         this.remitente = remitente;
         this.destinatarios = new ArrayList<>();
-        this.leido = false;
-        this.favorito = false;
-        this.eliminado = false;
-        this.borrador = false;
+        this.leido = false;   // por defecto no leido obvio
+        this.borrador = false; // por defecto no es borrador
     }
 
     //uso básico
