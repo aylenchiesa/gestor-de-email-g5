@@ -29,6 +29,11 @@ public class Contacto {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+      this.email = email;
+    }
+    
+    @Override
+    public String toString() {
+        return nombre + " <" + email + ">";
     }
 }
