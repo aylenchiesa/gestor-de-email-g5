@@ -14,9 +14,9 @@ public class Bandeja {
     emails.add(email);
   }
   
-  public void eliminarEmail(Email email) {
+  /*public void eliminarEmail(Email email) {
     emails.remove(email);
-  }
+  }*/
   
   public List<Email> getEmails() {
     return new ArrayList<>(emails);
@@ -29,15 +29,8 @@ public class Bandeja {
         .orElse(null);
   }
   
-  public void limpiarBandeja() {
+  /*public void limpiarBandeja() {
     emails.clear();
-  }
-  
-  public int getCantidadEmails() {
-    return emails.size();
-  }
+  } */
 
-  
-
-  
 }
