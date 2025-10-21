@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 public class EmailTest {
 
-    @Test
-    public void testEmailValidation() {
-      // Add your test logic here
+    //@Test
+    /*public void testEmailValidation() {
+      //agregar
       assertTrue(true);
-    }
+    }*/
 
     @Test
     public void testEnvioDeCorreo() {
