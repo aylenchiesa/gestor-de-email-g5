@@ -35,9 +35,6 @@ jobs:
       - name: Verify Java version
         run: java -version
 
-      - name: Verify Java version
-        run: java -version
-
       - name: Verify Maven version
         run: mvn -v
 
