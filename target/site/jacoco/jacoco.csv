@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+my-app,com.mycompany.app,Contacto,6,26,0,0,1,12,1,6,1,6
+my-app,com.mycompany.app,Email,23,38,0,0,5,13,5,5,5,5
+my-app,com.mycompany.app,Filtro,3,0,0,0,1,0,1,0,1,0
+my-app,com.mycompany.app,Bandeja,19,20,2,0,4,6,3,3,2,3
+my-app,com.mycompany.app,GestorContactos,3,29,0,0,1,7,1,5,1,5
+my-app,com.mycompany.app,SendMail,43,0,0,0,16,0,8,0,8,0
+my-app,com.mycompany.app,Usuario,8,15,0,0,4,6,2,3,2,3
