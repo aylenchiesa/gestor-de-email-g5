@@ -36,17 +36,16 @@ public class EmailTest {
 
     @Test
     void testEnvioCorreoImportante() {
-        // Crear contactos remitente y destinatario
-        Contacto remitente = new Contacto("Carlos Jefe", "jefe@empresa.com");
-        Contacto destinatario1 = new Contacto("Ana Empleada", "empleado1@empresa.com");
-        //Contacto destinatario2 = new Contacto("Luis Empleado", "empleado2@empresa.com");
+        
+        Contacto remitente = new Contacto("Aylena", "aylema@yahoo.com");
+        Contacto destinatario1 = new Contacto("Vicka", "vic@yahoo.com");
         
         SendMail correoImportante = new SendMail(
-            "URGENTE: Reunión",
-            "Reunión urgente mañana a las 9 AM",
+            "Chismeeeeeeeee",
+            "Birra mañana after class que hay chisme",
             remitente.getEmail(),
             Arrays.asList(destinatario1.getEmail()),
-            true  // Correo importante
+            true
         );
 
         assertTrue(correoImportante.isImportant());
@@ -54,9 +53,11 @@ public class EmailTest {
         assertEquals(remitente.getEmail(), correoImportante.getSender());
         assertTrue(correoImportante.getRecipients().contains(destinatario1.getEmail()));
         
-        // Enviar correo importante al primer destinatario
-        correoImportante.sendEmail(destinatario1.getEmail(), "URGENTE: Reunión", "Reunión urgente mañana");
+        // enviar correo
+        correoImportante.sendEmail(destinatario1.getEmail(), "Chismeeeeee", "Birra mañana after class que hay chisme");
 
         assertEquals("Sent", correoImportante.getStatus());
+
+        //falta verificar que el destinatario reciba el correo en su bandeja de entrada
     }
 }
