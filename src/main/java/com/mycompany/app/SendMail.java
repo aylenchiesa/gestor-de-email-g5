@@ -1,8 +1,6 @@
 package com.mycompany.app;
 
 import java.util.List;
-
-// Clase que implementa la interfaz ISend para enviar correos electrónicos.
 public class SendMail implements ISend {
     private String subject;
     private String content;
