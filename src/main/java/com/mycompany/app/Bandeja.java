@@ -33,4 +33,22 @@ public class Bandeja {
     emails.clear();
   } */
 
+  public List<Email> buscarEmails(String texto) {
+        List<Email> resultados = new ArrayList<>();
+        String query = texto.toLowerCase();
+
+        for (Email email : emails) {
+            boolean coincide =
+                (email.getAsunto() != null && email.getAsunto().toLowerCase().contains(query)) ||
+                (email.getContenido() != null && email.getContenido().toLowerCase().contains(query)) ||
+                (email.getRemitente() != null && email.getRemitente().toString().toLowerCase().contains(query)) ||
+                (email.getDestinatarios() != null && email.getDestinatarios().toString().toLowerCase().contains(query));
+            
+            if (coincide) {
+                resultados.add(email);
+            }
+        }
+
+        return resultados;
+    }
 }
