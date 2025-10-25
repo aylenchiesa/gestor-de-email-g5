@@ -38,7 +38,6 @@ public class GestorContactosTest {
         Contacto c1 = new Contacto("Aylén", "aylen@mail.com");
         gestor.agregarContacto(c1);
 
-        // El gestor edita directamente los datos
         boolean editado = gestor.editarContacto("aylen@mail.com", "Aylén Chiesa", "aylen.chiesa@mail.com");
 
         assertTrue(editado);
