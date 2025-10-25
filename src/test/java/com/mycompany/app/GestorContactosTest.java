@@ -32,10 +32,23 @@ public class GestorContactosTest {
         assertEquals(0, gestor.size());
     }
     
-    @Test
-    void testEliminarContactoInexistente() {
-        boolean eliminado = gestor.eliminarContacto("noexiste@email.com");
-        
-        assertFalse(eliminado);
+    public void testCrearEditarYEliminarContacto() {
+        GestorContactos gestor = new GestorContactos();
+
+        Contacto c1 = new Contacto("Aylén", "aylen@mail.com");
+        gestor.agregarContacto(c1);
+        assertEquals(1, gestor.size());
+
+        //editar
+        boolean editado = gestor.editarContacto("aylen@mail.com", "Aylén Chiesa", "aylen.chiesa@mail.com");
+        assertTrue(editado);
+        Contacto editadoC = gestor.buscarContactoPorEmail("aylen.chiesa@mail.com");
+        assertEquals("Aylén Chiesa", editadoC.getNombre());
+
+        // Eliminar
+        boolean eliminado = gestor.eliminarContacto("aylen.chiesa@mail.com");
+        assertTrue(eliminado);
+        assertEquals(0, gestor.size());
     }
 }
+
