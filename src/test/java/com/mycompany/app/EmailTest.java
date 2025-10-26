@@ -59,4 +59,40 @@ public class EmailTest {
 
         assertEquals("Sent", correoImportante.getStatus());
     }
+
+
+    @Test
+    void testEnvioCorreoMultipleDestinatarios() {
+     // Crear contactos remitente y varios destinatarios
+        Contacto remitente = new Contacto("Carlos Jefe", "jefe@empresa.com");
+        Contacto d1 = new Contacto("Ana Empleada", "empleado1@empresa.com");
+        Contacto d2 = new Contacto("Luis Empleado", "empleado2@empresa.com");
+        Contacto d3 = new Contacto("María Secretaria", "secretaria@empresa.com");
+
+        // Crear correo con varios destinatarios
+        SendMail correo = new SendMail(
+            "Aviso importante",
+            "Recordatorio: reunión general el viernes a las 10 AM.",
+            remitente.getEmail(),
+            Arrays.asList(d1.getEmail(), d2.getEmail(), d3.getEmail()),  // varios destinatarios
+            true // es importante
+    );
+
+    // Verificaciones iniciales
+        assertEquals("Pending", correo.getStatus(), "El estado inicial debe ser 'Pending'");
+        assertEquals(remitente.getEmail(), correo.getSender());
+        assertEquals(3, correo.getRecipients().size(), "Debe tener tres destinatarios");
+        assertTrue(correo.isImportant(), "El correo debe ser marcado como importante");
+        assertTrue(correo.getRecipients().containsAll(Arrays.asList(
+            d1.getEmail(), d2.getEmail(), d3.getEmail()
+        )), "Los destinatarios deben coincidir con los agregados");
+
+        // Envia el correo a todos los destinatarios
+        for (String destinatario : correo.getRecipients()) {
+            correo.sendEmail(destinatario, correo.getSubject(), correo.getContent());
+        }
+
+        // Verificar que el estado final sea 'Sent'
+       assertEquals("Sent", correo.getStatus());
+    }
 }
