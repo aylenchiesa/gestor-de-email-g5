@@ -1,50 +1,38 @@
 package com.mycompany.app;
 
+import java.util.ArrayList;
 import java.util.List;
-public class SendMail implements ISend {
-    private String subject;
-    private String content;
-    private String sender;
-    private List<String> recipients;
-    private boolean important;
-    private String status;
 
-    public SendMail(String subject, String content, String sender, List<String> recipients, boolean important) {
-        this.subject = subject;
-        this.content = content;
-        this.sender = sender;
-        this.recipients = recipients;
-        this.important = important;
-        this.status = "Pending";
-    }
+public class SendMail implements ISend {
+    private String status = "Pending";
 
     public String getStatus() {
-        return status;
+      return status;
     }
+    
+    public void enviar(String to, String subject, String body) {
+        Contacto remitente = new Contacto("Remitente por defecto", "remitente@demo.com");
+        Contacto destinatario = new Contacto("Destinatario temporal", to);
 
-    public String getSubject() {
-        return subject;
-    }
+        Email email = new Email(subject, body, remitente);
+        email.getRecipients().add(destinatario);
 
-    public String getContent() {
-        return content;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public List<String> getRecipients() {
-        return recipients;
-    }
-
-    public boolean isImportant() {
-        return important;
+        enviar(email, email.getRecipients());
     }
 
     @Override
-    public void sendEmail(String to, String subject, String body) {
-        // Implementation for sending email
+    public void enviar(Email email, List<Contacto> recipients) {
+        Contacto remitente = email.getSender();
+
+        //guarda en enviados del remitente
+        remitente.getBandejaEnviados().agregarEmail(email);
+
+        //guarda en bandeja de entrada de cada destinatario
+        for (Contacto destinatario : email.getRecipients()) {
+            destinatario.getBandejaEntrada().agregarEmail(email);
+        }
+
         this.status = "Sent";
     }
 }
+

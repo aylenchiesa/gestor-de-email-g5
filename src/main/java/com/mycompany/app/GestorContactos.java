@@ -33,7 +33,7 @@ public class GestorContactos {
         return false; // no encontrado
     }
 
-    
+  
     public List<Contacto> getContactos() {
         return contactos;
     }

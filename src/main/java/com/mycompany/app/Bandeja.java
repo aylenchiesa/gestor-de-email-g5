@@ -22,13 +22,6 @@ public class Bandeja {
     return new ArrayList<>(emails);
   }
   
-  public Email buscarEmailPorId(int id) {
-    return emails.stream()
-        .filter(email -> email.getId() == id)
-        .findFirst()
-        .orElse(null);
-  }
-  
   /*public void limpiarBandeja() {
     emails.clear();
   } */
