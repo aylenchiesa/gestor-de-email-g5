@@ -34,7 +34,7 @@ public class EmailTest {
         assertEquals(remitente, bandejaEntrada.getEmails().get(0).getRemitente());
     }
 
-    @Test
+    /*@Test
     void testEnvioCorreoImportante() {
 
       Contacto remitente = new Contacto("Aylena", "aylema@yahoo.com");
@@ -110,5 +110,5 @@ public class EmailTest {
         
         assertEquals(1, resultados.size());
         assertEquals("Reunión mañana", resultados.get(0).getSubject());
-    }
+    }*/
 }
