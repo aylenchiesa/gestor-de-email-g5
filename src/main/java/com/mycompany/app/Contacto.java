@@ -3,7 +3,6 @@ package com.mycompany.app;
 public class Contacto {
     // el contacto contiene la información del nombre y correo electrónico de una persona. 
     // Este podrá ser utilizado tanto como remitente o como destinatario en un correo. 
-    // El sistema deberá permitir crear, editar y eliminar contactos.
     
     private String nombre;
     private String email;

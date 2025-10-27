@@ -1,5 +1,7 @@
 package com.mycompany.app;
+import java.util.List;
 
 public interface ISend {
-    void sendEmail(String to, String subject, String body);
+    void enviar(Email email, List<Contacto> recipients);
 }
+

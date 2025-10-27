@@ -4,49 +4,48 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Email {
-  
-    private String asunto;
-    private String contenido;
-    private Contacto remitente;
-    private List<Contacto> destinatarios;
+
+    private String subject;
+    private String content;
+    private Contacto sender;
+    private List<Contacto> recipients;
 
     private boolean leido; //por defecto falso
+    private boolean important;
     private boolean borrador;
+    public boolean eliminado;
 
     //constructor
-    public Email(String asunto, String contenido, Contacto remitente) {
-        this.asunto = asunto;
-        this.contenido = contenido;
-        this.remitente = remitente;
-        this.destinatarios = new ArrayList<>();
-        this.leido = false;   // por defecto no leido obvio
+    public Email(String subject, String content, Contacto sender) {
+        this.subject = subject;
+        this.content = content;
+        this.sender = sender;
+        this.recipients = new ArrayList<>();
+        this.leido = false; // por defecto no leido obvio
+        this.important = false; // por defecto no es importante
         this.borrador = false; // por defecto no es borrador
+        this.eliminado = false; // por defecto no eliminado
     }
 
     //uso básico
-    public void agregarDestinatario(Contacto contacto) {
-        destinatarios.add(contacto);
-    }
-
-    /*public void restaurar() {
+    public void restaurar() {
         this.eliminado = false;
-    }*/
-
-    // getters
-    public String getAsunto() {
-      return asunto;
     }
 
-    public String getContenido() {
-      return contenido;
+    public String getSubject() {
+      return subject;
     }
-      
-    public Contacto getRemitente() {
-      return remitente;
+
+    public String getContent() {
+      return content;
     }
-      
-    public List<Contacto> getDestinatarios() {
-      return destinatarios;
+
+    public Contacto getSender() {
+      return sender;
+    }
+
+    public List<Contacto> getRecipients() {
+        return recipients;
     }
       
     public boolean isLeido() {
@@ -57,13 +56,14 @@ public class Email {
       return borrador;
     }
 
-    @Override
-    public String toString() {
-        return "[Asunto: " + asunto + ", Remitente: " + remitente + ", Leído: " + leido + "]";
+    public boolean isImportant() {
+      return important;
     }
-    
-    public int getId() {
-    throw new UnsupportedOperationException("Unimplemented method 'getId'");
-  }
+
+    public boolean isEliminado() {
+      return eliminado;
+    }
+
+  
 
 }
