@@ -32,11 +32,11 @@ public class Bandeja {
 
         for (Email email : emails) {
             boolean coincide =
-                (email.getAsunto() != null && email.getAsunto().toLowerCase().contains(query)) ||
-                (email.getContenido() != null && email.getContenido().toLowerCase().contains(query)) ||
-                (email.getRemitente() != null && email.getRemitente().toString().toLowerCase().contains(query)) ||
-                (email.getDestinatarios() != null && email.getDestinatarios().toString().toLowerCase().contains(query));
-            
+                (email.getSubject() != null && email.getSubject().toLowerCase().contains(query)) ||
+                (email.getContent() != null && email.getContent().toLowerCase().contains(query)) ||
+                (email.getSender() != null && email.getSender().toString().toLowerCase().contains(query)) ||
+                (email.getRecipients() != null && email.getRecipients().toString().toLowerCase().contains(query));
+
             if (coincide) {
                 resultados.add(email);
             }
