@@ -20,7 +20,7 @@ public class SendMail implements ISend {
         enviar(email, email.getRecipients());
     }
 
-    @Override
+    /*@Override
     public void enviar(Email email, List<Contacto> recipients) {
         Contacto remitente = email.getSender();
 
@@ -33,6 +33,22 @@ public class SendMail implements ISend {
         }
 
         this.status = "Sent";
+    }/* */
+
+    @Override
+    public void enviar(Email email, List<Contacto> recipients) {
+    Contacto remitente = email.getSender();
+
+    // Guarda el correo en la bandeja de salida del remitente
+    remitente.getBandejaSalida().agregarEmail(email);
+
+    // Guarda el correo en la bandeja de entrada de cada destinatario
+    for (Contacto destinatario : recipients) {
+        destinatario.getBandejaEntrada().agregarEmail(email);
     }
+
+    this.status = "Sent";
+}
+
 }
 

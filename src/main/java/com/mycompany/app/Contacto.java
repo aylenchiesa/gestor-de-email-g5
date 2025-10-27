@@ -6,13 +6,20 @@ public class Contacto {
     
     private String nombre;
     private String email;
+    private Bandeja bandejaEntrada; 
+    private Bandeja bandejaSalida;
+    //esas bandejas para que cada Contacto tenga su propio historial.
 
     public Contacto() {
+        this.bandejaEntrada = new Bandeja();
+        this.bandejaSalida = new Bandeja();
     }
 
     public Contacto(String nombre, String email) { //agregar this bandeja de entrada para que cada contacto tenga su propia bandeja
         this.nombre = nombre;
         this.email = email;
+        this.bandejaEntrada = new Bandeja();
+        this.bandejaSalida = new Bandeja();
     }
 
     public String getNombre() {
@@ -29,6 +36,14 @@ public class Contacto {
 
     public void setEmail(String email) {
       this.email = email;
+    }
+
+     public Bandeja getBandejaEntrada() {
+        return bandejaEntrada;
+    }
+
+    public Bandeja getBandejaSalida() {
+        return bandejaSalida;
     }
     
     @Override
