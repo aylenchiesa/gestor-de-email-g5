@@ -72,6 +72,11 @@ public class EmailTest {
         // Verificar que el remitente del correo recibido sea correcto
         assertEquals(r1, ana.getBandejaEntrada().getEmails().get(0).getSender());
         assertEquals(r1, luis.getBandejaEntrada().getEmails().get(0).getSender());
+        
+        //verificar leido
+        assertFalse(ana.getBandejaEntrada().getEmails().get(0).isLeido(), "El correo en la bandeja de Ana debería estar sin leer");
+        assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido(), "El correo en la bandeja de Luis debería estar sin leer");
+    
     }
     // creo que me da algo raro este test jeje (pero por ahora lo dejo asi) (xq me sale el continue)
 }
