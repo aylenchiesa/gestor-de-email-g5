@@ -78,7 +78,7 @@ public class EmailTest {
         assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido(),
             "El correo en la bandeja de Luis debería estar sin leer");
         
-        //ana abre el correo
+        //ana abre el correo (o sea mira el contenido)
         ana.getBandejaEntrada().getEmails().get(0).getContent();
 
         //ENOTNCES SE MARCA COMO LEIDOOOOOOOO ALTOKE
