@@ -1,6 +1,5 @@
 package com.mycompany.app;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SendMail implements ISend {
@@ -8,16 +7,6 @@ public class SendMail implements ISend {
 
     public String getStatus() {
       return status;
-    }
-    
-    public void enviar(String to, String subject, String body) {
-        Contacto remitente = new Contacto("Remitente por defecto", "remitente@demo.com");
-        Contacto destinatario = new Contacto("Destinatario temporal", to);
-
-        Email email = new Email(subject, body, remitente);
-        email.getRecipients().add(destinatario);
-
-        enviar(email, email.getRecipients());
     }
 
     @Override
