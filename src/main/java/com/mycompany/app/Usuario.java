@@ -36,7 +36,11 @@ public class Usuario implements IMarcador {
 
     @Override
     public void marcarComoNoLeido() {
-        this.leido = false;
+      this.leido = false;
     }
     
+    @Override
+    public boolean isLeido() {
+      return leido;
+    }
 }
