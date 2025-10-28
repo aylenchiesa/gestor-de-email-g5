@@ -1,10 +1,11 @@
 package com.mycompany.app;
 
-public class Usuario {
+public class Usuario implements IMarcador {
     private String nombre;
     private String email;
-    private boolean leido = false;
+    public boolean leido = false;
 
+    
 
     public Usuario(String nombre, String email) {
         this.nombre = nombre;
@@ -27,12 +28,15 @@ public class Usuario {
     public void setEmail(String email) {
       this.email = email;
     }
-    
+
+    @Override
     public void marcarComoLeido() {
-      this.leido = true;
+        this.leido = true;
     }
 
+    @Override
     public void marcarComoNoLeido() {
-      this.leido = false;
+        this.leido = false;
     }
+    
 }

@@ -3,7 +3,7 @@ package com.mycompany.app;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Email {
+public class Email implements IMarcador {
 
     private String subject;
     private String content;
@@ -37,6 +37,7 @@ public class Email {
     }
 
     public String getContent() {
+      this.marcarComoLeido(); //se marca automáticamente como leído al abrir el contenido
       return content;
     }
 
@@ -47,11 +48,22 @@ public class Email {
     public List<Contacto> getRecipients() {
         return recipients;
     }
-      
+
+    @Override
+    public void marcarComoLeido() {
+        this.leido = true;
+    }
+
+    @Override
+    public void marcarComoNoLeido() {
+        this.leido = false;
+    }
+
+    @Override
     public boolean isLeido() {
       return leido;
     }
-      
+    
     public boolean isBorrador() {
       return borrador;
     }
