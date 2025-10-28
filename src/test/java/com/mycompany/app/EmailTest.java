@@ -45,12 +45,12 @@ public class EmailTest {
         Email email = new Email(
             "Reunión semanal",
             "Recordatorio de reunión el lunes a las 10:00.",
-            remitente
+            remitente            
         );
 
         // Agregar destinatarios
-        email.getRecipients();
-        email.getRecipients(); 
+        email.getRecipients().add(ana);
+        email.getRecipients().add(luis);
 
         // Crear el gestor de envío
         SendMail gestor = new SendMail();
