@@ -75,7 +75,11 @@ public class EmailTest {
         
         //verificar leido
         assertFalse(ana.getBandejaEntrada().getEmails().get(0).isLeido(), "El correo en la bandeja de Ana debería estar sin leer");
-        assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido(), "El correo en la bandeja de Luis debería estar sin leer");
+        assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido(),
+            "El correo en la bandeja de Luis debería estar sin leer");
+        //cómo hago que ana y luis lean el correo?
+        ana.getBandejaEntrada().getEmails().get(0).marcarComoLeido();
+        luis.getBandejaEntrada().getEmails().get(0).marcarComoLeido();
     
     }
     // creo que me da algo raro este test jeje (pero por ahora lo dejo asi) (xq me sale el continue)
