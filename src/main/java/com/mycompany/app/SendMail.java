@@ -20,29 +20,14 @@ public class SendMail implements ISend {
         enviar(email, email.getRecipients());
     }
 
-    /*@Override
-    public void enviar(Email email, List<Contacto> recipients) {
-        Contacto remitente = email.getSender();
-
-        //guarda en enviados del remitente
-        remitente.getBandejaEnviados().agregarEmail(email);
-
-        //guarda en bandeja de entrada de cada destinatario
-        for (Contacto destinatario : email.getRecipients()) {
-            destinatario.getBandejaEntrada().agregarEmail(email);
-        }
-
-        this.status = "Sent";
-    }/* */
-
     @Override
     public void enviar(Email email, List<Contacto> recipients) {
     Contacto remitente = email.getSender();
 
-    // Guarda el correo en la bandeja de salida del remitente
+    //guarda el correo en la bandeja de salida del remitente
     remitente.getBandejaSalida().agregarEmail(email);
 
-    // Guarda el correo en la bandeja de entrada de cada destinatario
+    //guarda el correo en la bandeja de entrada de cada destinatario
     for (Contacto destinatario : recipients) {
         destinatario.getBandejaEntrada().agregarEmail(email);
     }
