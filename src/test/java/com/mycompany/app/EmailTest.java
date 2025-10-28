@@ -37,7 +37,7 @@ public class EmailTest {
     @Test
     public void testEnvioDeCorreoEntreBandejas() {
         // Crear remitente y destinatarios
-        Contacto remitente = new Contacto("Carlos", "carlos@empresa.com");
+        Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
         Contacto ana = new Contacto("Ana", "ana@empresa.com");
         Contacto luis = new Contacto("Luis", "luis@empresa.com");
 
@@ -45,33 +45,33 @@ public class EmailTest {
         Email email = new Email(
             "Reunión semanal",
             "Recordatorio de reunión el lunes a las 10:00.",
-            remitente            
+            r1            
         );
 
         // Agregar destinatarios
         email.getRecipients().add(ana);
         email.getRecipients().add(luis);
 
-        // Crear el gestor de envío
+        //clase que envía
         SendMail gestor = new SendMail();
 
-        // Enviar el correo
+        //enviar
         gestor.enviar(email, Arrays.asList(ana, luis));
 
         // Verificar que el estado del envío cambió
         assertEquals("Sent", gestor.getStatus(), "El estado del correo debería ser 'Sent'");
 
         // Verificar que el correo se guardó en la bandeja de salida del remitente
-        assertEquals(1, remitente.getBandejaSalida().getEmails().size(), "El remitente debería tener un correo en su bandeja de salida");
-        assertEquals("Reunión semanal", remitente.getBandejaSalida().getEmails().get(0).getSubject());
+        assertEquals(1, r1.getBandejaSalida().getEmails().size(), "El remitente debería tener un correo en su bandeja de salida");
+        assertEquals("Reunión semanal", r1.getBandejaSalida().getEmails().get(0).getSubject());
 
         // Verificar que cada destinatario recibió el correo en su bandeja de entrada
         assertEquals(1, ana.getBandejaEntrada().getEmails().size(), "Ana debería tener un correo en su bandeja de entrada");
         assertEquals(1, luis.getBandejaEntrada().getEmails().size(), "Luis debería tener un correo en su bandeja de entrada");
 
         // Verificar que el remitente del correo recibido sea correcto
-        assertEquals(remitente, ana.getBandejaEntrada().getEmails().get(0).getSender());
-        assertEquals(remitente, luis.getBandejaEntrada().getEmails().get(0).getSender());
+        assertEquals(r1, ana.getBandejaEntrada().getEmails().get(0).getSender());
+        assertEquals(r1, luis.getBandejaEntrada().getEmails().get(0).getSender());
     }
     // creo que me da algo raro este test jeje (pero por ahora lo dejo asi) (xq me sale el continue)
 }
