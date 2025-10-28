@@ -84,7 +84,8 @@ public class EmailTest {
         //ENOTNCES SE MARCA COMO LEIDOOOOOOOO ALTOKE
         assertTrue(ana.getBandejaEntrada().getEmails().get(0).isLeido());
         
-        luis.getBandejaEntrada().getEmails().get(0).marcarComoLeido();
+        //luis no leyo su correo
+        assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido());
     
     }
     // creo que me da algo raro este test jeje (pero por ahora lo dejo asi) (xq me sale el continue)
