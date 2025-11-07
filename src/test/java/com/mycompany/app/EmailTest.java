@@ -11,84 +11,137 @@ import org.junit.jupiter.api.Test;
 
 public class EmailTest {
 
-   //pruebaCI
+  //pruebaCI
 
-    @Test
-    public void testEnvioDeCorreo() {//raro este test
-     
-        Contacto remitente = new Contacto("Remitente 1", "remitente@demo.com");
-        Contacto c1 = new Contacto("Contacto 1", "contacto1@demo.com");
+  @Test
+  public void testEnvioDeCorreo() {//raro este test
 
-        Email email = new Email("Prueba", "Hola, este es un correo de prueba", remitente);
-        email.getRecipients().add(c1);
+    Contacto remitente = new Contacto("Remitente 1", "remitente@demo.com");
+    Contacto c1 = new Contacto("Contacto 1", "contacto1@demo.com");
 
-        //bandeja de entrada del destinatario
-        Bandeja bandejaEntrada = new Bandeja();
+    Email email = new Email("Prueba", "Hola, este es un correo de prueba", remitente);
+    email.getRecipients().add(c1);
 
-        //simular que le llega un correo al destinatario
-        bandejaEntrada.agregarEmail(email);
+    //bandeja de entrada del destinatario
+    Bandeja bandejaEntrada = new Bandeja();
 
-        assertEquals(1, bandejaEntrada.getEmails().size(), "La bandeja debería tener un correo recibido");
-        assertEquals("Prueba", bandejaEntrada.getEmails().get(0).getSubject());
-        assertFalse(bandejaEntrada.getEmails().get(0).isLeido(), "El correo recibido debería estar sin leer");
-        assertEquals(remitente, bandejaEntrada.getEmails().get(0).getSender());
-    }
+    //simular que le llega un correo al destinatario
+    bandejaEntrada.agregarEmail(email);
 
-    @Test
-    public void testEnvioDeCorreoEntreBandejas() {
-        // Crear remitente y destinatarios
-        Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
-        Contacto ana = new Contacto("Ana", "ana@empresa.com");
-        Contacto luis = new Contacto("Luis", "luis@empresa.com");
+    assertEquals(1, bandejaEntrada.getEmails().size(), "La bandeja debería tener un correo recibido");
+    assertEquals("Prueba", bandejaEntrada.getEmails().get(0).getSubject());
+    assertFalse(bandejaEntrada.getEmails().get(0).isLeido(), "El correo recibido debería estar sin leer");
+    assertEquals(remitente, bandejaEntrada.getEmails().get(0).getSender());
+  }
 
-        // Crear el correo
-        Email email = new Email(
-            "Reunión semanal",
-            "Recordatorio de reunión el lunes a las 10:00.",
-            r1            
-        );
+  @Test
+  public void testEnvioDeCorreoEntreBandejas() {
+    // Crear remitente y destinatarios
+    Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
+    Contacto ana = new Contacto("Ana", "ana@empresa.com");
+    Contacto luis = new Contacto("Luis", "luis@empresa.com");
 
-        // Agregar destinatarios
-        email.getRecipients().add(ana);
-        email.getRecipients().add(luis);
+    // Crear el correo
+    Email email = new Email(
+        "Reunión semanal",
+        "Recordatorio de reunión el lunes a las 10:00.",
+        r1);
 
-        //clase que envía
-        SendMail gestor = new SendMail();
+    // Agregar destinatarios
+    email.getRecipients().add(ana);
+    email.getRecipients().add(luis);
 
-        //enviar
-        gestor.enviar(email, Arrays.asList(ana, luis));
+    //clase que envía
+    SendMail gestor = new SendMail();
 
-        // Verificar que el estado del envío cambió
-        assertEquals("Sent", gestor.getStatus(), "El estado del correo debería ser 'Sent'");
+    //enviar
+    gestor.enviar(email, Arrays.asList(ana, luis));
 
-        // Verificar que el correo se guardó en la bandeja de salida del remitente
-        assertEquals(1, r1.getBandejaSalida().getEmails().size(), "El remitente debería tener un correo en su bandeja de salida");
-        assertEquals("Reunión semanal", r1.getBandejaSalida().getEmails().get(0).getSubject());
+    // Verificar que el estado del envío cambió
+    assertEquals("Sent", gestor.getStatus(), "El estado del correo debería ser 'Sent'");
 
-        // Verificar que cada destinatario recibió el correo en su bandeja de entrada
-        assertEquals(1, ana.getBandejaEntrada().getEmails().size(), "Ana debería tener un correo en su bandeja de entrada");
-        assertEquals(1, luis.getBandejaEntrada().getEmails().size(), "Luis debería tener un correo en su bandeja de entrada");
+    // Verificar que el correo se guardó en la bandeja de salida del remitente
+    assertEquals(1, r1.getBandejaSalida().getEmails().size(),
+        "El remitente debería tener un correo en su bandeja de salida");
+    assertEquals("Reunión semanal", r1.getBandejaSalida().getEmails().get(0).getSubject());
 
-        // Verificar que el remitente del correo recibido sea correcto
-        assertEquals(r1, ana.getBandejaEntrada().getEmails().get(0).getSender());
-        assertEquals(r1, luis.getBandejaEntrada().getEmails().get(0).getSender());
-        
-        //verificar leido
-        assertFalse(ana.getBandejaEntrada().getEmails().get(0).isLeido(), "El correo en la bandeja de Ana debería estar sin leer");
-        assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido(),
-            "El correo en la bandeja de Luis debería estar sin leer");
-        
-        //ana abre el correo (o sea mira el contenido)
-        ana.getBandejaEntrada().getEmails().get(0).getContent();
+    // Verificar que cada destinatario recibió el correo en su bandeja de entrada
+    assertEquals(1, ana.getBandejaEntrada().getEmails().size(), "Ana debería tener un correo en su bandeja de entrada");
+    assertEquals(1, luis.getBandejaEntrada().getEmails().size(),
+        "Luis debería tener un correo en su bandeja de entrada");
 
-        //ENOTNCES SE MARCA COMO LEIDOOOOOOOO ALTOKE
-        assertTrue(ana.getBandejaEntrada().getEmails().get(0).isLeido());
-        
-        //luis no leyo su correo
-        assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido());
-    
-    }
-    // creo que me da algo raro este test jeje (pero por ahora lo dejo asi) (xq me sale el continue)
+    // Verificar que el remitente del correo recibido sea correcto
+    assertEquals(r1, ana.getBandejaEntrada().getEmails().get(0).getSender());
+    assertEquals(r1, luis.getBandejaEntrada().getEmails().get(0).getSender());
+
+    //verificar leido
+    assertFalse(ana.getBandejaEntrada().getEmails().get(0).isLeido(),
+        "El correo en la bandeja de Ana debería estar sin leer");
+    assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido(),
+        "El correo en la bandeja de Luis debería estar sin leer");
+
+    //ana abre el correo (o sea mira el contenido)
+    ana.getBandejaEntrada().getEmails().get(0).getContent();
+
+    //ENOTNCES SE MARCA COMO LEIDOOOOOOOO ALTOKE
+    assertTrue(ana.getBandejaEntrada().getEmails().get(0).isLeido());
+
+    //luis no leyo su correo
+    assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido());
+
+  }
+  // creo que me da algo raro este test jeje (pero por ahora lo dejo asi) (xq me sale el continue)
+
+  @Test
+  public void testMarcarComoLeido() {
+    // Crear remitente y destinatarios
+    Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
+    Contacto ana = new Contacto("Ana", "ana@empresa.com");
+    Contacto luis = new Contacto("Luis", "luis@empresa.com");
+
+    // Crear el correo
+    Email email = new Email(
+        "Ya es Viernes",
+        "Hoy es viernes de cerveza.",
+        r1);
+
+    // Agregar destinatarios
+    email.getRecipients().add(ana);
+    email.getRecipients().add(luis);
+
+    //clase que envía
+    SendMail gestor = new SendMail();
+
+    //enviar
+    gestor.enviar(email, Arrays.asList(ana, luis));
+
+    // verificar el estatus (sent)
+    assertEquals("Sent", gestor.getStatus(), "El estado del correo debería ser 'Sent'");
+
+    //guardado en bandeja de salida
+    assertEquals(1, r1.getBandejaSalida().getEmails().size(),"El remitente debería tener un correo en su bandeja de salida");
+    assertEquals("Ya es Viernes", r1.getBandejaSalida().getEmails().get(0).getSubject());
+
+    //verificar el guardado en bandeja de entrada de cada uno
+    assertEquals(1, ana.getBandejaEntrada().getEmails().size(), "Ana debería tener un correo en su bandeja de entrada");
+    assertEquals(1, luis.getBandejaEntrada().getEmails().size(),"Luis debería tener un correo en su bandeja de entrada");
+
+    //verificar leido
+    assertFalse(ana.getBandejaEntrada().getEmails().get(0).isLeido(),
+        "El correo en la bandeja de Ana debería estar sin leer");
+    assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido(),
+        "El correo en la bandeja de Luis debería estar sin leer");
+
+    //ana abre el correo (o sea mira el contenido)
+    ana.getBandejaEntrada().getEmails().get(0).getContent();
+
+    //ENOTNCES SE MARCA COMO LEIDOOOOOOOO
+    assertTrue(ana.getBandejaEntrada().getEmails().get(0).isLeido());
+
+    //luis no leyo su correo
+    assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido());
+  }
+
 }
 
 

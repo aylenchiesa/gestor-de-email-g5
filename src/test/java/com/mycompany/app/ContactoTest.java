@@ -42,7 +42,7 @@ public class ContactoTest {
         contacto.setNombre(nombreInicial);
         assertEquals(nombreInicial, contacto.getNombre());
         
-        // Editar nombre
+        //editar nombre
         contacto.setNombre(nombreNuevo);
         assertEquals(nombreNuevo, contacto.getNombre());
     }
