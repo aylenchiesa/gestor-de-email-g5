@@ -3,68 +3,79 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Email {
-  
-    private String asunto;
-    private String contenido;
-    private Contacto remitente;
-    private List&lt;Contacto&gt; destinatarios;
+public class Email implements IMarcador {
+
+    private String subject;
+    private String content;
+    private Contacto sender;
+    private List&lt;Contacto&gt; recipients;
 
     private boolean leido; //por defecto falso
+    private boolean important;
     private boolean borrador;
+    public boolean eliminado;
 
     //constructor
-<span class="fc" id="L17">    public Email(String asunto, String contenido, Contacto remitente) {</span>
-<span class="fc" id="L18">        this.asunto = asunto;</span>
-<span class="fc" id="L19">        this.contenido = contenido;</span>
-<span class="fc" id="L20">        this.remitente = remitente;</span>
-<span class="fc" id="L21">        this.destinatarios = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L22">        this.leido = false;   // por defecto no leido obvio</span>
-<span class="fc" id="L23">        this.borrador = false; // por defecto no es borrador</span>
-<span class="fc" id="L24">    }</span>
+<span class="fc" id="L19">    public Email(String subject, String content, Contacto sender) {</span>
+<span class="fc" id="L20">        this.subject = subject;</span>
+<span class="fc" id="L21">        this.content = content;</span>
+<span class="fc" id="L22">        this.sender = sender;</span>
+<span class="fc" id="L23">        this.recipients = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L24">        this.leido = false; // por defecto no leido obvio</span>
+<span class="fc" id="L25">        this.important = false; // por defecto no es importante</span>
+<span class="fc" id="L26">        this.borrador = false; // por defecto no es borrador</span>
+<span class="fc" id="L27">        this.eliminado = false; // por defecto no eliminado</span>
+<span class="fc" id="L28">    }</span>
 
     //uso básico
-    public void agregarDestinatario(Contacto contacto) {
-<span class="fc" id="L28">        destinatarios.add(contacto);</span>
-<span class="fc" id="L29">    }</span>
+    public void restaurar() {
+<span class="nc" id="L32">        this.eliminado = false;</span>
+<span class="nc" id="L33">    }</span>
 
-    /*public void restaurar() {
-        this.eliminado = false;
-    }*/
-
-    // getters
-    public String getAsunto() {
-<span class="fc" id="L37">      return asunto;</span>
+    public String getSubject() {
+<span class="fc" id="L36">      return subject;</span>
     }
 
-    public String getContenido() {
-<span class="nc" id="L41">      return contenido;</span>
+    public String getContent() {
+<span class="fc" id="L40">      this.marcarComoLeido(); //se marca automáticamente como leído al abrir el contenido</span>
+<span class="fc" id="L41">      return content;</span>
     }
-      
-    public Contacto getRemitente() {
-<span class="fc" id="L45">      return remitente;</span>
+
+    public Contacto getSender() {
+<span class="fc" id="L45">      return sender;</span>
     }
-      
-    public List&lt;Contacto&gt; getDestinatarios() {
-<span class="nc" id="L49">      return destinatarios;</span>
-    }
-      
-    public boolean isLeido() {
-<span class="fc" id="L53">      return leido;</span>
-    }
-      
-    public boolean isBorrador() {
-<span class="nc" id="L57">      return borrador;</span>
+
+    public List&lt;Contacto&gt; getRecipients() {
+<span class="fc" id="L49">        return recipients;</span>
     }
 
     @Override
-    public String toString() {
-<span class="nc" id="L62">        return &quot;[Asunto: &quot; + asunto + &quot;, Remitente: &quot; + remitente + &quot;, Leído: &quot; + leido + &quot;]&quot;;</span>
+    public void marcarComoLeido() {
+<span class="fc" id="L54">        this.leido = true;</span>
+<span class="fc" id="L55">    }</span>
+
+    @Override
+    public void marcarComoNoLeido() {
+<span class="nc" id="L59">        this.leido = false;</span>
+<span class="nc" id="L60">    }</span>
+
+    @Override
+    public boolean isLeido() {
+<span class="fc" id="L64">      return leido;</span>
     }
     
-    public int getId() {
-<span class="nc" id="L66">    throw new UnsupportedOperationException(&quot;Unimplemented method 'getId'&quot;);</span>
-  }
+    public boolean isBorrador() {
+<span class="nc" id="L68">      return borrador;</span>
+    }
 
+    public boolean isImportant() {
+<span class="nc" id="L72">      return important;</span>
+    }
+
+    public boolean isEliminado() {
+<span class="nc" id="L76">      return eliminado;</span>
+    }
+
+    
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

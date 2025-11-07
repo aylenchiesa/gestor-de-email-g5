@@ -2,52 +2,32 @@
 
 import java.util.List;
 
-// Clase que implementa la interfaz ISend para enviar correos electrónicos.
-public class SendMail implements ISend {
-    private String subject;
-    private String content;
-    private String sender;
-    private List&lt;String&gt; recipients;
-    private boolean important;
-    private String status;
-
-<span class="nc" id="L14">    public SendMail(String subject, String content, String sender, List&lt;String&gt; recipients, boolean important) {</span>
-<span class="nc" id="L15">        this.subject = subject;</span>
-<span class="nc" id="L16">        this.content = content;</span>
-<span class="nc" id="L17">        this.sender = sender;</span>
-<span class="nc" id="L18">        this.recipients = recipients;</span>
-<span class="nc" id="L19">        this.important = important;</span>
-<span class="nc" id="L20">        this.status = &quot;Pending&quot;;</span>
-<span class="nc" id="L21">    }</span>
+<span class="fc" id="L5">public class SendMail implements ISend {</span>
+<span class="fc" id="L6">    private String status = &quot;Pending&quot;;</span>
 
     public String getStatus() {
-<span class="nc" id="L24">        return status;</span>
-    }
-
-    public String getSubject() {
-<span class="nc" id="L28">        return subject;</span>
-    }
-
-    public String getContent() {
-<span class="nc" id="L32">        return content;</span>
-    }
-
-    public String getSender() {
-<span class="nc" id="L36">        return sender;</span>
-    }
-
-    public List&lt;String&gt; getRecipients() {
-<span class="nc" id="L40">        return recipients;</span>
-    }
-
-    public boolean isImportant() {
-<span class="nc" id="L44">        return important;</span>
+<span class="fc" id="L9">      return status;</span>
     }
 
     @Override
-    public void sendEmail(String to, String subject, String body) {
-        // Implementation for sending email
-<span class="nc" id="L50">        this.status = &quot;Sent&quot;;</span>
-<span class="nc" id="L51">    }</span>
+    public void enviar(Email email, List&lt;Contacto&gt; recipients) {
+<span class="fc" id="L14">    Contacto remitente = email.getSender();</span>
+
+    //guarda el correo en la bandeja de salida del remitente
+<span class="fc" id="L17">    remitente.getBandejaSalida().agregarEmail(email);</span>
+
+    //guarda el correo en la bandeja de entrada de cada destinatario
+    // CADA DESTINATARIO RECIBE SU PROPIA COPIA DEL EMAIL
+<span class="fc bfc" id="L21" title="All 2 branches covered.">    for (Contacto destinatario : recipients) {</span>
+<span class="fc" id="L22">        Email copiaEmail = new Email(email.getSubject(), email.getContent(), email.getSender());</span>
+        // Copiar los destinatarios originales
+<span class="fc" id="L24">        copiaEmail.getRecipients().addAll(email.getRecipients());</span>
+<span class="fc" id="L25">        destinatario.getBandejaEntrada().agregarEmail(copiaEmail);</span>
+<span class="fc" id="L26">    }</span>
+
+<span class="fc" id="L28">    this.status = &quot;Sent&quot;;</span>
+<span class="fc" id="L29">}</span>
+
 }
+
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -22,16 +22,27 @@ public class Bandeja {
 <span class="fc" id="L22">    return new ArrayList&lt;&gt;(emails);</span>
   }
   
-  public Email buscarEmailPorId(int id) {
-<span class="nc" id="L26">    return emails.stream()</span>
-<span class="nc bnc" id="L27" title="All 2 branches missed.">        .filter(email -&gt; email.getId() == id)</span>
-<span class="nc" id="L28">        .findFirst()</span>
-<span class="nc" id="L29">        .orElse(null);</span>
-  }
-  
   /*public void limpiarBandeja() {
     emails.clear();
   } */
 
+  public List&lt;Email&gt; buscarEmails(String texto) {
+<span class="nc" id="L30">        List&lt;Email&gt; resultados = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L31">        String query = texto.toLowerCase();</span>
+
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        for (Email email : emails) {</span>
+<span class="nc" id="L34">            boolean coincide =</span>
+<span class="nc bnc" id="L35" title="All 4 branches missed.">                (email.getSubject() != null &amp;&amp; email.getSubject().toLowerCase().contains(query)) ||</span>
+<span class="nc bnc" id="L36" title="All 4 branches missed.">                (email.getContent() != null &amp;&amp; email.getContent().toLowerCase().contains(query)) ||</span>
+<span class="nc bnc" id="L37" title="All 4 branches missed.">                (email.getSender() != null &amp;&amp; email.getSender().toString().toLowerCase().contains(query)) ||</span>
+<span class="nc bnc" id="L38" title="All 4 branches missed.">                (email.getRecipients() != null &amp;&amp; email.getRecipients().toString().toLowerCase().contains(query));</span>
+
+<span class="nc bnc" id="L40" title="All 2 branches missed.">            if (coincide) {</span>
+<span class="nc" id="L41">                resultados.add(email);</span>
+            }
+<span class="nc" id="L43">        }</span>
+
+<span class="nc" id="L45">        return resultados;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

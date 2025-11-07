@@ -5,4 +5,5 @@ com\mycompany\app\Filtro.class
 com\mycompany\app\Email.class
 com\mycompany\app\ISend.class
 com\mycompany\app\Bandeja.class
+com\mycompany\app\IMarcador.class
 com\mycompany\app\Usuario.class
