@@ -64,6 +64,15 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.2</version>
+        <configuration>
+          <!-- Reducir output verboso -->
+          <printSummary>true</printSummary>
+          <useFile>true</useFile>
+          <trimStackTrace>false</trimStackTrace>
+          <!-- No crear archivos temporales innecesarios -->
+          <reuseForks>true</reuseForks>
+          <forkCount>1</forkCount>
+        </configuration>
        </plugin>
     </plugins>
   </build>
