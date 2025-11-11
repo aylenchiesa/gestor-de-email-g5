@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+/workspaces/gestor-de-email-g5/src/main/java/com/mycompany/app/ISend.java
+/workspaces/gestor-de-email-g5/src/main/java/com/mycompany/app/SendMail.java
+/workspaces/gestor-de-email-g5/src/main/java/com/mycompany/app/Contacto.java
+/workspaces/gestor-de-email-g5/src/main/java/com/mycompany/app/Email.java
+/workspaces/gestor-de-email-g5/src/main/java/com/mycompany/app/Filtro.java
+/workspaces/gestor-de-email-g5/src/main/java/com/mycompany/app/Usuario.java
+/workspaces/gestor-de-email-g5/src/main/java/com/mycompany/app/GestorContactos.java
+/workspaces/gestor-de-email-g5/src/main/java/com/mycompany/app/Bandeja.java
+=======
 C:\Users\Usuario\OneDrive\Documentos\victoria trabajos\Repo vicky\gestor-de-email-g5\src\main\java\com\mycompany\app\IMarcador.java
 C:\Users\Usuario\OneDrive\Documentos\victoria trabajos\Repo vicky\gestor-de-email-g5\src\main\java\com\mycompany\app\GestorContactos.java
 C:\Users\Usuario\OneDrive\Documentos\victoria trabajos\Repo vicky\gestor-de-email-g5\src\main\java\com\mycompany\app\Bandeja.java
@@ -7,3 +17,4 @@ C:\Users\Usuario\OneDrive\Documentos\victoria trabajos\Repo vicky\gestor-de-emai
 C:\Users\Usuario\OneDrive\Documentos\victoria trabajos\Repo vicky\gestor-de-email-g5\src\main\java\com\mycompany\app\Filtro.java
 C:\Users\Usuario\OneDrive\Documentos\victoria trabajos\Repo vicky\gestor-de-email-g5\src\main\java\com\mycompany\app\Email.java
 C:\Users\Usuario\OneDrive\Documentos\victoria trabajos\Repo vicky\gestor-de-email-g5\src\main\java\com\mycompany\app\SendMail.java
+>>>>>>> 738d77c4203ea6e45bbd81f129bf341bf9b42f8c
