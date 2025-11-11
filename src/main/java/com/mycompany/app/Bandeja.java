@@ -15,7 +15,7 @@ public class Bandeja {
   }
   
   public boolean eliminarEmail(Email email) {
-    return correos.remove(email);
+    return email.remove(email);
   }
   
   public List<Email> getEmails() {
