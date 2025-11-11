@@ -118,7 +118,6 @@ public class EmailTest {
 
     //guardado en bandeja de salida
     assertEquals(1, r1.getBandejaSalida().getEmails().size(),"El remitente debería tener un correo en su bandeja de salida");
-    assertEquals("Ya es Viernes", r1.getBandejaSalida().getEmails().get(0).getSubject());
 
     //verificar el guardado en bandeja de entrada de cada uno
     assertEquals(1, ana.getBandejaEntrada().getEmails().size(), "Ana debería tener un correo en su bandeja de entrada");

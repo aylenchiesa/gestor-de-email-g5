@@ -1,5 +1,6 @@
 package com.mycompany.app;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,7 +58,37 @@ public class BandejaTest {
       assertTrue(resultadoVacio.isEmpty(), "No debería encontrar correos con el texto 'vacaciones'");
     }
     
- 
+    @Test
+    public void testIsEliminadoPorDefecto() {
+        
+        Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
+        Contacto martu = new Contacto("Ana", "ana@empresa.com");
+        
+
+    // Crear el correo
+    Email email = new Email(
+        "Ya es Viernes",
+        "Hoy es viernes de cerveza.",
+        r1);
+
+    // Agregar destinatarios
+    email.getRecipients().add(martu);
+
+    //clase que envía
+    SendMail gestor = new SendMail();
+
+    //enviar
+    gestor.enviar(email, Arrays.asList(martu));
+
+    // verificar status sent y que se guardo en bandeja de salida
+    assertEquals("Sent", gestor.getStatus(), "El estado del correo debería ser 'Sent'");
+    assertEquals(1, r1.getBandejaSalida().getEmails().size(),
+        "El remitente debería tener un correo en su bandeja de salida");
+    
+    martu.getBandejaEntrada().eliminarEmail(email);
+    assertTrue(martu.getBandejaEntrada().getEmails().get(0).isEliminado());
+
+    }
 
 
 }
