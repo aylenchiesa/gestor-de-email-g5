@@ -83,11 +83,11 @@ public class UsuarioTest {
     luisContacto.getBandejaEntrada().getEmails().get(0).getContent();
     assertTrue(luisContacto.getBandejaEntrada().getEmails().get(0).isLeido());
     
-    // 9. ANA DECIDE VOLVER A MARCAR SU EMAIL COMO NO LEÍDO
+    // ana marca su correo como no leido
     emailAna.marcarComoNoLeido();
     assertFalse(emailAna.isLeido(), "Email de Ana debería estar sin leer después de marcarComoNoLeido");
     
-    // 10. VERIFICAR QUE LOS USUARIOS PUEDEN USAR SUS CAPACIDADES
+    // verifico que el correo de ana se marcó como no leido
     assertFalse(anaUsuario.isLeido(), "Ana usuario inicialmente no leído");
     anaUsuario.marcarComoLeido();
     assertTrue(anaUsuario.isLeido(), "Ana usuario debería estar marcado como leído");
