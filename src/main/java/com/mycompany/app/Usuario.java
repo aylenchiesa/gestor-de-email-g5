@@ -4,6 +4,7 @@ public class Usuario implements IMarcador {
     private String nombre;
     private String email;
     public boolean leido = false;
+    private boolean eliminado = false;//por defecto falso
 
     
 
@@ -42,5 +43,13 @@ public class Usuario implements IMarcador {
     @Override
     public boolean isLeido() {
       return leido;
+    }
+
+    public void eliminarEmail(Email email) {
+    emails.remove(email);
+    }
+
+    public boolean isEliminado() {
+      return eliminado;
     }
 }

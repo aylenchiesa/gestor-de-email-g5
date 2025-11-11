@@ -8,6 +8,7 @@ public class Contacto {
     private String email;
     private Bandeja bandejaEntrada; 
     private Bandeja bandejaSalida;
+
     //esas bandejas para que cada Contacto tenga su propio historial.
 
     public Contacto() {
@@ -50,4 +51,6 @@ public class Contacto {
     public String toString() {
         return nombre + " <" + email + ">";
     }
+
+    
 }

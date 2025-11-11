@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Bandeja {
   private List<Email> emails;
-  private boolean eliminado;//por defecto falso
+  
   
   public Bandeja() {
     this.emails = new ArrayList<>();
@@ -13,14 +13,6 @@ public class Bandeja {
   
   public void agregarEmail(Email email) { //o sea recibir
     emails.add(email);
-  }
-  
-  public void eliminarEmail(Email email) {
-    emails.remove(email);
-  }
-
-  public boolean isEliminado() {
-    return eliminado;
   }
 
   public List<Email> getEmails() {

@@ -85,7 +85,7 @@ public class BandejaTest {
     assertEquals(1, r1.getBandejaSalida().getEmails().size(),
         "El remitente debería tener un correo en su bandeja de salida");
     
-    martu.getBandejaEntrada().eliminarEmail(email);
+    martu.eliminarEmail(email);
     assertTrue(martu.getBandejaEntrada().getEmails().get(0).isEliminado());
 
     }
