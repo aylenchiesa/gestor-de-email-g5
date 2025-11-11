@@ -1,10 +1,13 @@
 package com.mycompany.app;
 
+import java.util.List;
+
 public class Usuario implements IMarcador {
     private String nombre;
     private String email;
     public boolean leido = false;
     private boolean eliminado = false;//por defecto falso
+    private List<Email> emails;
 
     
 
