@@ -2,51 +2,31 @@ package com.mycompany.app;
 
 import java.util.List;
 
-// Clase que implementa la interfaz ISend para enviar correos electrónicos.
 public class SendMail implements ISend {
-    private String subject;
-    private String content;
-    private String sender;
-    private List<String> recipients;
-    private boolean important;
-    private String status;
-
-    public SendMail(String subject, String content, String sender, List<String> recipients, boolean important) {
-        this.subject = subject;
-        this.content = content;
-        this.sender = sender;
-        this.recipients = recipients;
-        this.important = important;
-        this.status = "Pending";
-    }
+    private String status = "Pending";
 
     public String getStatus() {
-        return status;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public List<String> getRecipients() {
-        return recipients;
-    }
-
-    public boolean isImportant() {
-        return important;
+      return status;
     }
 
     @Override
-    public void sendEmail(String to, String subject, String body) {
-        // Implementation for sending email
-        this.status = "Sent";
+    public void enviar(Email email, List<Contacto> recipients) {
+    Contacto remitente = email.getSender();
+
+    //guarda el correo en la bandeja de salida del remitente
+    remitente.getBandejaSalida().agregarEmail(email);
+
+    //guarda el correo en la bandeja de entrada de cada destinatario
+    // CADA DESTINATARIO RECIBE SU PROPIA COPIA DEL EMAIL
+    for (Contacto destinatario : recipients) {
+        Email copiaEmail = new Email(email.getSubject(), email.getContent(), email.getSender());
+        // Copiar los destinatarios originales
+        copiaEmail.getRecipients().addAll(email.getRecipients());
+        destinatario.getBandejaEntrada().agregarEmail(copiaEmail);
     }
+
+    this.status = "Sent";
 }
+
+}
+

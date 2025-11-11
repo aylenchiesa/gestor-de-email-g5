@@ -22,15 +22,26 @@ public class Bandeja {
     return new ArrayList<>(emails);
   }
   
-  public Email buscarEmailPorId(int id) {
-    return emails.stream()
-        .filter(email -> email.getId() == id)
-        .findFirst()
-        .orElse(null);
-  }
-  
   /*public void limpiarBandeja() {
     emails.clear();
   } */
 
+  public List<Email> buscarEmails(String texto) {
+        List<Email> resultados = new ArrayList<>();
+        String query = texto.toLowerCase();
+
+        for (Email email : emails) {
+            boolean coincide =
+                (email.getSubject() != null && email.getSubject().toLowerCase().contains(query)) ||
+                (email.getContent() != null && email.getContent().toLowerCase().contains(query)) ||
+                (email.getSender() != null && email.getSender().toString().toLowerCase().contains(query)) ||
+                (email.getRecipients() != null && email.getRecipients().toString().toLowerCase().contains(query));
+
+            if (coincide) {
+                resultados.add(email);
+            }
+        }
+
+        return resultados;
+    }
 }

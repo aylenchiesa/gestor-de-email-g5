@@ -35,9 +35,6 @@ jobs:
       - name: Verify Java version
         run: java -version
 
-      - name: Verify Java version
-        run: java -version
-
       - name: Verify Maven version
         run: mvn -v
 
@@ -47,7 +44,4 @@ jobs:
       - name: Clean and build with Maven
         run: mvn -B clean verify --file pom.xml
 
-      - name: Update dependency graph (optional)
-        if: success()
-        uses: advanced-security/maven-dependency-submission-action@v4
 
