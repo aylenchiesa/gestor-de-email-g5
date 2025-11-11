@@ -10,51 +10,54 @@ public class BandejaTest {
     
     @Test
     public void testBuscarEmailsEnBandejaDeEntrada() {
-    // Crear contactos
-    Contacto remitente = new Contacto("Carlos", "carlos@empresa.com");
-    Contacto ana = new Contacto("Ana", "ana@empresa.com");
-    Contacto luis = new Contacto("Luis", "luis@empresa.com");
+      // Crear contactos
+      Contacto remitente = new Contacto("Carlos", "carlos@empresa.com");
+      Contacto ana = new Contacto("Ana", "ana@empresa.com");
+      Contacto luis = new Contacto("Luis", "luis@empresa.com");
 
-    // bandeja de entrada de Ana
-    Bandeja bandejaEntrada = ana.getBandejaEntrada();
+      // bandeja de entrada de Ana
+      Bandeja bandejaEntrada = ana.getBandejaEntrada();
 
-    // crear y agregar correos simulados
-    Email correo1 = new Email("Reunión semanal", "Recordatorio de reunión el lunes a las 10:00.", remitente);
-    correo1.getRecipients().add(ana);
-    
-    Email correo2 = new Email("Informe mensual", "Por favor enviar el informe antes del viernes.", remitente);
-    correo2.getRecipients().add(ana);
+      // crear y agregar correos simulados
+      Email correo1 = new Email("Reunión semanal", "Recordatorio de reunión el lunes a las 10:00.", remitente);
+      correo1.getRecipients().add(ana);
 
-    Email correo3 = new Email("Festejo", "Luis invita a un asado el sábado.", luis);
-    correo3.getRecipients().add(ana);
+      Email correo2 = new Email("Informe mensual", "Por favor enviar el informe antes del viernes.", remitente);
+      correo2.getRecipients().add(ana);
 
-    bandejaEntrada.agregarEmail(correo1);
-    bandejaEntrada.agregarEmail(correo2);
-    bandejaEntrada.agregarEmail(correo3);
+      Email correo3 = new Email("Festejo", "Luis invita a un asado el sábado.", luis);
+      correo3.getRecipients().add(ana);
 
-    // aca probamos las busquedassss
-    
-    // buscar por asunto
-    List<Email> resultadoAsunto = bandejaEntrada.buscarEmails("reunión");
-    assertEquals(1, resultadoAsunto.size(), "Debería encontrar 1 correo con 'reunión' en el asunto");
-    assertEquals("Reunión semanal", resultadoAsunto.get(0).getSubject());
+      bandejaEntrada.agregarEmail(correo1);
+      bandejaEntrada.agregarEmail(correo2);
+      bandejaEntrada.agregarEmail(correo3);
 
-    // buscar por contenido
-    List<Email> resultadoContenido = bandejaEntrada.buscarEmails("informe");
-    assertEquals(1, resultadoContenido.size(), "Debería encontrar 1 correo con 'informe' en el contenido");
-    assertEquals("Informe mensual", resultadoContenido.get(0).getSubject());
+      // aca probamos las busquedassss
 
-    // buscar por remitente
-    List<Email> resultadoRemitente = bandejaEntrada.buscarEmails("carlos@empresa.com");
-    assertEquals(2, resultadoRemitente.size(), "Debería encontrar 2 correos enviados por Carlos");
+      // buscar por asunto
+      List<Email> resultadoAsunto = bandejaEntrada.buscarEmails("reunión");
+      assertEquals(1, resultadoAsunto.size(), "Debería encontrar 1 correo con 'reunión' en el asunto");
+      assertEquals("Reunión semanal", resultadoAsunto.get(0).getSubject());
 
-    // buscar por destinatario
-    List<Email> resultadoDestinatario = bandejaEntrada.buscarEmails("ana@empresa.com");
-    assertEquals(3, resultadoDestinatario.size(), "Ana debería aparecer como destinataria en los 3 correos");
+      // buscar por contenido
+      List<Email> resultadoContenido = bandejaEntrada.buscarEmails("informe");
+      assertEquals(1, resultadoContenido.size(), "Debería encontrar 1 correo con 'informe' en el contenido");
+      assertEquals("Informe mensual", resultadoContenido.get(0).getSubject());
 
-    // buscar texto inexistente
-    List<Email> resultadoVacio = bandejaEntrada.buscarEmails("vacaciones");
-    assertTrue(resultadoVacio.isEmpty(), "No debería encontrar correos con el texto 'vacaciones'");
+      // buscar por remitente
+      List<Email> resultadoRemitente = bandejaEntrada.buscarEmails("carlos@empresa.com");
+      assertEquals(2, resultadoRemitente.size(), "Debería encontrar 2 correos enviados por Carlos");
+
+      // buscar por destinatario
+      List<Email> resultadoDestinatario = bandejaEntrada.buscarEmails("ana@empresa.com");
+      assertEquals(3, resultadoDestinatario.size(), "Ana debería aparecer como destinataria en los 3 correos");
+
+      // buscar texto inexistente
+      List<Email> resultadoVacio = bandejaEntrada.buscarEmails("vacaciones");
+      assertTrue(resultadoVacio.isEmpty(), "No debería encontrar correos con el texto 'vacaciones'");
     }
+    
+ 
+
 
 }
