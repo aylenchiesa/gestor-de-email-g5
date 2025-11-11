@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Bandeja {
   private List<Email> emails;
+  private boolean eliminado;//por defecto falso
   
   public Bandeja() {
     this.emails = new ArrayList<>();
@@ -17,7 +18,11 @@ public class Bandeja {
   public void eliminarEmail(Email email) {
     emails.remove(email);
   }
-  
+
+  public boolean isEliminado() {
+    return eliminado;
+  }
+
   public List<Email> getEmails() {
     return new ArrayList<>(emails);
   }
