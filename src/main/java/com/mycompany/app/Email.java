@@ -76,5 +76,11 @@ public class Email implements IMarcador {
       return eliminado;
     }
 
-    
+    public Email copiar() {
+      Email copia = new Email(this.getSubject(), this.getContent(), this.getSender());
+      copia.getRecipients().addAll(this.getRecipients());
+      
+      return copia;
+
+    }
 }

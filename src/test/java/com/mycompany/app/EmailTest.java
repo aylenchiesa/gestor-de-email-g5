@@ -124,10 +124,8 @@ public class EmailTest {
     assertEquals(1, luis.getBandejaEntrada().getEmails().size(),"Luis debería tener un correo en su bandeja de entrada");
 
     //verificar leido
-    assertFalse(ana.getBandejaEntrada().getEmails().get(0).isLeido(),
-        "El correo en la bandeja de Ana debería estar sin leer");
-    assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido(),
-        "El correo en la bandeja de Luis debería estar sin leer");
+    assertFalse(ana.getBandejaEntrada().getEmails().get(0).isLeido(),"El correo en la bandeja de Ana debería estar sin leer");
+    assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido(),"El correo en la bandeja de Luis debería estar sin leer");
 
     //ana abre el correo (o sea mira el contenido)
     ana.getBandejaEntrada().getEmails().get(0).getContent();
@@ -139,7 +137,7 @@ public class EmailTest {
     assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido());
   }
 
-  
+
 
 }
 

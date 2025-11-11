@@ -18,11 +18,12 @@ public class SendMail implements ISend {
 
     //guarda el correo en la bandeja de entrada de cada destinatario
     // CADA DESTINATARIO RECIBE SU PROPIA COPIA DEL EMAIL
+    
     for (Contacto destinatario : recipients) {
-        Email copiaEmail = new Email(email.getSubject(), email.getContent(), email.getSender());
-        // Copiar los destinatarios originales
-        copiaEmail.getRecipients().addAll(email.getRecipients());
-        destinatario.getBandejaEntrada().agregarEmail(copiaEmail);
+      
+      Email copia = email.copiar();
+      
+        destinatario.getBandejaEntrada().agregarEmail(copia);
     }
 
     this.status = "Sent";

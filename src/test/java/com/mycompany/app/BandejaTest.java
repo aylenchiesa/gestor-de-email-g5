@@ -63,6 +63,7 @@ public class BandejaTest {
         
         Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
         Contacto martu = new Contacto("Ana", "ana@empresa.com");
+        Usuario martuUser = new Usuario("Martu", "martu@empresa.com");
         
 
     // Crear el correo
@@ -85,8 +86,8 @@ public class BandejaTest {
     assertEquals(1, r1.getBandejaSalida().getEmails().size(),
         "El remitente debería tener un correo en su bandeja de salida");
     
-    martu.eliminarEmail(email);
-    assertTrue(martu.getBandejaEntrada().getEmails().get(0).isEliminado());
+    martuUser.eliminarEmail(email);
+    assertTrue(martuUser.getBandejaEntrada().getEmails().get(0).isEliminado());
 
     }
 
