@@ -43,4 +43,16 @@ public class Filtro {
             .filter(condicion)
             .toList();
     }
+
+    //filtra correos que contengan cierta palabra en asunto o contenido
+     public List<Email> porTextoLibre(List<Email> emails, String texto) {
+        String query = texto.toLowerCase();
+        return emails.stream()
+            .filter(email ->
+                (email.getSubject() != null && email.getSubject().toLowerCase().contains(query)) ||
+                (email.getContent() != null && email.getContent().toLowerCase().contains(query))
+            )
+            .toList();
+    }
+
 }
