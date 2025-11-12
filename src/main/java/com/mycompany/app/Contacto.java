@@ -52,5 +52,13 @@ public class Contacto {
         return nombre + " <" + email + ">";
     }
 
+    //metodo eliminar contacto, vacia la info de todo
+    public void eliminarContacto() {
+    this.nombre = null;
+    this.email = null;
+    this.bandejaEntrada = null;
+    this.bandejaSalida = null;
+    }
+
     
 }

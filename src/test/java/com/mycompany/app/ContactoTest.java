@@ -64,22 +64,25 @@ public class ContactoTest {
     
 
     @Test
-    //ESTA MAL ESTE TEST porque lo elimina manualmente, crear método eliminar en Contacto
     void testEliminarContacto() {
-        // Crear contacto con datos
-        contacto.setNombre("Ana López");
-        contacto.setEmail("ana.lopez@email.com");
-        
-        assertNotNull(contacto.getNombre());
-        assertNotNull(contacto.getEmail());
-        
-        // Simular eliminación estableciendo valores a null
-        contacto.setNombre(null);
-        contacto.setEmail(null);
-        
-        assertNull(contacto.getNombre());
-        assertNull(contacto.getEmail());
-    }
+    // Crear contacto con datos
+    Contacto contacto = new Contacto("Ana López", "ana.lopez@email.com");
+
+    // Verificar que se creó correctamente
+    assertNotNull(contacto.getNombre());
+    assertNotNull(contacto.getEmail());
+    assertNotNull(contacto.getBandejaEntrada());
+    assertNotNull(contacto.getBandejaSalida());
+
+    // Eliminar contacto con el nuevo método
+    contacto.eliminarContacto();
+
+    // Verificar que los campos se limpiaron
+    assertNull(contacto.getNombre(), "El nombre debería estar en null tras eliminar el contacto");
+    assertNull(contacto.getEmail(), "El email debería estar en null tras eliminar el contacto");
+    assertNull(contacto.getBandejaEntrada(), "La bandeja de entrada debería estar en null");
+    assertNull(contacto.getBandejaSalida(), "La bandeja de salida debería estar en null");
+}
 
     @Test
     void testContactoComoRemitente() {
