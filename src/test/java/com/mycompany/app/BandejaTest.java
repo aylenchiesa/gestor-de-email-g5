@@ -148,7 +148,7 @@ public class BandejaTest {
     assertEquals(1, resultado.size());
     assertEquals("Reunión urgente", resultado.get(0).getSubject());
   }
-
+//como q no entiendo mucho los filtros pero bueno aca hay dos test más
 
 }
 
