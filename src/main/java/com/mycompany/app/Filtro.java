@@ -1,14 +1,14 @@
 package com.mycompany.app;
 import java.util.List;
 import java.util.function.Predicate;
-
+ 
 public class Filtro {
   //ejemplo de filtro para emails de dominio ucp.com
   public List<Email> filtroDominioUCP(List<Email> emails) {
     return emails.stream()
         .filter(email -> email.getSender().getEmail().endsWith("@ucp.com"))
         .toList();
-  }
+ } 
 
   //predicado para filtrar emails por cantidad mínima de destinatarios
   private Predicate<Email> tieneDestinatariosMayorOIgualA(int cantidad) {

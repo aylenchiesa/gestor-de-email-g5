@@ -114,5 +114,4 @@ public class BandejaTest {
         assertTrue(emailsUCP.contains(email3), "Debería incluir email3");
         assertFalse(emailsUCP.contains(email2), "No debería incluir email de Gmail");
     }
-
 }
