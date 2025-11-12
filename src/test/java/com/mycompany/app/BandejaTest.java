@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -59,37 +60,59 @@ public class BandejaTest {
     }
     
     @Test
-    public void testIsEliminadoPorDefecto() {
-        
-        Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
-        Contacto martu = new Contacto("Ana", "ana@empresa.com");
-        Usuario martuUser = new Usuario("Martu", "martu@empresa.com");
-        
+    public void testIsEliminado() {
 
-    // Crear el correo
-    Email email = new Email(
-        "Ya es Viernes",
-        "Hoy es viernes de cerveza.",
-        r1);
+      Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
+      Contacto martu = new Contacto("Ana", "ana@empresa.com");
+      Usuario martuUser = new Usuario("Martu", "martu@empresa.com");
 
-    // Agregar destinatarios
-    email.getRecipients().add(martu);
+      // Crear el correo
+      Email email = new Email(
+          "Ya es Viernes",
+          "Hoy es viernes de cerveza.",
+          r1);
 
-    //clase que envía
-    SendMail gestor = new SendMail();
+      // Agregar destinatarios
+      email.getRecipients().add(martu);
 
-    //enviar
-    gestor.enviar(email, Arrays.asList(martu));
+      //clase que envía
+      SendMail gestor = new SendMail();
 
-    // verificar status sent y que se guardo en bandeja de salida
-    assertEquals("Sent", gestor.getStatus(), "El estado del correo debería ser 'Sent'");
-    assertEquals(1, r1.getBandejaSalida().getEmails().size(),
-        "El remitente debería tener un correo en su bandeja de salida");
-    
-    martuUser.eliminarEmail(email);
-    assertTrue(martuUser.getBandejaEntrada().getEmails().get(0).isEliminado());
+      //enviar
+      gestor.enviar(email, Arrays.asList(martu));
+
+      // verificar status sent y que se guardo en bandeja de salida
+      assertEquals("Sent", gestor.getStatus(), "El estado del correo debería ser 'Sent'");
+      assertEquals(1, r1.getBandejaSalida().getEmails().size(),
+          "El remitente debería tener un correo en su bandeja de salida");
+
+      martuUser.eliminarEmail(email);
+      assertTrue(martuUser.getBandejaEntrada().getEmails().get(0).isEliminado());
 
     }
 
+    @Test
+    public void testFiltroEmailsUCP() {
+        // Crear emails de diferentes dominios
+        Contacto laura = new Contacto("Laura", "laura@ucp.com");
+        Contacto aylen = new Contacto("Aylen", "aylen@gmail.com");
+        Contacto vick = new Contacto("Vick", "vick@ucp.com");
+        
+        Email email1 = new Email("Test UCP 1", "Contenido", laura);
+        Email email2 = new Email("Test Gmail", "Contenido", aylen);
+        Email email3 = new Email("Test UCP 2", "Contenido", vick);
+        
+        List<Email> todosLosEmails = Arrays.asList(email1, email2, email3);
+        
+        // Usar el filtro
+        Filtro filtro = new Filtro();
+        List<Email> emailsUCP = filtro.filtroDominioUCP(todosLosEmails);
+        
+        // Verificar resultados
+        assertEquals(2, emailsUCP.size(), "Debería haber 2 emails de UCP");
+        assertTrue(emailsUCP.contains(email1), "Debería incluir email1");
+        assertTrue(emailsUCP.contains(email3), "Debería incluir email3");
+        assertFalse(emailsUCP.contains(email2), "No debería incluir email de Gmail");
+    }
 
 }

@@ -1,19 +1,18 @@
 package com.mycompany.app;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Filtro {
   //ejemplo de filtro para emails de dominio ucp.com
-  public List<Email> filtroDominioUCP (List<Email> emails) {
-    return emails.stream() 
-        .filter(email -> email.getSender().getEmail().endsWith("@ucp.com")) 
-        .toList();
-  }
-
-  //filtro que retorna lista de emails de dominio UCP
-  public List<Email> obtenerEmailsDeUCP(List<Email> emails) {
+  public List<Email> filtroDominioUCP(List<Email> emails) {
     return emails.stream()
         .filter(email -> email.getSender().getEmail().endsWith("@ucp.com"))
         .toList();
+  }
+
+  //predicado para filtrar emails por cantidad mínima de destinatarios
+  private Predicate<Email> tieneDestinatariosMayorOIgualA(int cantidad) {
+        return email -> email.getRecipients().size() >= cantidad;
   }
 
   //filtro genérico por dominio
@@ -22,7 +21,6 @@ public class Filtro {
         .filter(email -> email.getSender().getEmail().endsWith("@" + dominio))
         .toList();
   }
-
 
   //filtra emails no leídos
   public List<Email> noLeidosEnInbox(List<Email> emails) {
@@ -35,6 +33,13 @@ public class Filtro {
     public List<Email> porDominio(List<Email> emails, String dominio) {
         return emails.stream()
             .filter(email -> email.getSender().getEmail().endsWith("@" + dominio))
+            .toList();
+    }
+
+    //método genérico para usar cualquier predicado
+    public List<Email> filtrar(List<Email> emails, Predicate<Email> condicion) {
+        return emails.stream()
+            .filter(condicion)
             .toList();
     }
 }
