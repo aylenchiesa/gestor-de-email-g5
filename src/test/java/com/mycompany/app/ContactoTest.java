@@ -64,6 +64,7 @@ public class ContactoTest {
     
 
     @Test
+    //ESTA MAL ESTE TEST porque lo elimina manualmente, crear método eliminar en Contacto
     void testEliminarContacto() {
         // Crear contacto con datos
         contacto.setNombre("Ana López");

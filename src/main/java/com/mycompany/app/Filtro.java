@@ -8,12 +8,13 @@ public class Filtro {
     return emails.stream()
         .filter(email -> email.getSender().getEmail().endsWith("@ucp.com"))
         .toList();
- } 
-
+  }
+ 
+ /*
   //predicado para filtrar emails por cantidad mínima de destinatarios
   private Predicate<Email> tieneDestinatariosMayorOIgualA(int cantidad) {
         return email -> email.getRecipients().size() >= cantidad;
-  }
+  }*/
 
   //filtro genérico por dominio
   public List<Email> filtrarPorDominio(List<Email> emails, String dominio) {
