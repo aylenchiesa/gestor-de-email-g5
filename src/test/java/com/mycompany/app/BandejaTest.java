@@ -65,6 +65,9 @@ public class BandejaTest {
       Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
       Contacto martu = new Contacto("Martu", "martu@empresa.com");
       Usuario martuUser = new Usuario("Martu", "martu@empresa.com");
+      
+      // Usar el contacto del usuario, no crear uno separado
+      Contacto martu = martuUser.getContacto();
 
       // Crear el correo
       Email emailVierne = new Email(
@@ -81,14 +84,19 @@ public class BandejaTest {
       //enviar
       gestor.enviar(emailVierne, Arrays.asList(martu));
 
-      assertEquals(1, martu.getBandejaEntrada().getEmails().size(), "Martu debería tener un correo en su bandeja de entrada");
+      Email emailDeMartu = martu.getBandejaEntrada().getEmails().get(0);
 
-      martuUser.eliminarEmail(emailVierne);
-      assertTrue(emailVierne.isEliminado());
+      
+      //Verificar que el email llegó
+      assertEquals(1, martu.getBandejaEntrada().getEmails().size(),"Martu debería tener un correo en su bandeja de entrada");
+      assertTrue(martu.getBandejaEntrada().getEmails().contains(emailDeMartu));
 
-      assertFalse(martu.getBandejaEntrada().getEmails().contains(emailVierne));
-      //assertTrue(martuUser.getContacto().getBandejaEntrada().getEmails().get(0).isEliminado());
+      // Eliminar usando el usuario
+      martuUser.eliminarEmail(emailDeMartu);
+      assertTrue(emailDeMartu.isEliminado());
 
+      // Verificar que ya no está en la bandeja
+      assertFalse(martu.getBandejaEntrada().getEmails().contains(emailDeMartu));
     }
 
     @Test
