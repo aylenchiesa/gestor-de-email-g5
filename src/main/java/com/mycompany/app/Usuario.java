@@ -13,6 +13,11 @@ public class Usuario implements IMarcador {
         this.contacto = contacto;
     }
 
+    public Usuario(String nombre2, String email2) {
+      this.nombre = nombre2;
+      this.email = email2;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -52,15 +57,20 @@ public class Usuario implements IMarcador {
     // Usuario puede eliminar emails de su contacto asociado
     public void eliminarEmail(Email email) {
         email.eliminado = true; // Marcar como eliminado
-        // Opcional: remover físicamente de las bandejas
+        // Remover físicamente de la bandeja el email específico
         if (contacto != null) {
-            contacto.getBandejaEntrada().getEmails().removeIf(e -> e.eliminado);
+            // Usar removeIf para encontrar el email por referencia directa
+            contacto.getBandejaEntrada().getEmails().removeIf(e -> e == email);
         }
     }
 
     // Usuario puede restaurar emails
     public void restaurarEmail(Email email) {
-        email.restaurar(); // Usar método existente en Email
+      email.restaurar(); // Usar método existente en Email
     }
-
+    
+/*    public void eliminarEmail(Email email) {
+        email.marcarComoEliminado();
+        this.contacto.getBandejaEntrada().removerEmail(email);
+    } */
 }
