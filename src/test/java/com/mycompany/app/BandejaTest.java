@@ -60,11 +60,15 @@ public class BandejaTest {
     }
     
     @Test
-    public void testUsuarioEliminaEmail() {
+    public void testIsEliminado() {
 
       Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
       Contacto martu = new Contacto("Martu", "martu@empresa.com");
+<<<<<<< HEAD
       Usuario martuUser = new Usuario("Martu", "martu@empresa.com", martu);
+=======
+      Usuario martuUser = new Usuario("Martu", "martu@empresa.com");
+>>>>>>> 18a9f1e6758004df8b9c01fc9127dabb79cf86da
 
       //crear el correo
       Email emailVierne = new Email(
@@ -81,6 +85,7 @@ public class BandejaTest {
       //enviar
       gestor.enviar(emailVierne, Arrays.asList(martu));
 
+<<<<<<< HEAD
       Email emailDeMartu = martu.getBandejaEntrada().getEmails().get(0);
       
       //Verificar que el email llegó
@@ -93,6 +98,16 @@ public class BandejaTest {
       
       // Verificar que ya no está en la bandeja
       assertFalse(martu.getBandejaEntrada().getEmails().contains(emailDeMartu));
+=======
+      assertEquals(1, martu.getBandejaEntrada().getEmails().size(), "Martu debería tener un correo en su bandeja de entrada");
+      
+      martuUser.eliminarEmail(emailVierne);
+      assertTrue(emailVierne.isEliminado());
+
+      assertFalse(martu.getBandejaEntrada().getEmails().contains(emailVierne));
+      //assertTrue(martuUser.getContacto().getBandejaEntrada().getEmails().get(0).isEliminado());
+
+>>>>>>> 18a9f1e6758004df8b9c01fc9127dabb79cf86da
     }
 
     @Test
