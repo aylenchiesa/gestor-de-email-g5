@@ -21,14 +21,11 @@ public class BandejaTest {
       Bandeja bandejaEntrada = ana.getBandejaEntrada();
 
       // crear y agregar correos simulados
-      Email correo1 = new Email("Reunión semanal", "Recordatorio de reunión el lunes a las 10:00.", remitente);
-      correo1.getRecipients().add(ana);
+      Email correo1 = new Email("Reunión semanal", "Recordatorio de reunión el lunes a las 10:00.", remitente, Arrays.asList(ana));
 
-      Email correo2 = new Email("Informe mensual", "Por favor enviar el informe antes del viernes.", remitente);
-      correo2.getRecipients().add(ana);
+      Email correo2 = new Email("Informe mensual", "Por favor enviar el informe antes del viernes.", remitente, Arrays.asList(ana));
 
-      Email correo3 = new Email("Festejo", "Luis invita a un asado el sábado.", luis);
-      correo3.getRecipients().add(ana);
+      Email correo3 = new Email("Festejo", "Luis invita a un asado el sábado.", luis, Arrays.asList(ana));
 
       bandejaEntrada.agregarEmail(correo1);
       bandejaEntrada.agregarEmail(correo2);
@@ -70,10 +67,7 @@ public class BandejaTest {
       Email emailVierne = new Email(
           "Ya es Viernes",
           "Hoy es viernes de cerveza.",
-          r1);
-
-      // Agregar destinatarios
-      emailVierne.getRecipients().add(martu);
+          r1, Arrays.asList(martu));
 
       //clase que envía
       SendMail gestor = new SendMail();
@@ -103,9 +97,9 @@ public class BandejaTest {
         Contacto aylen = new Contacto("Aylen", "aylen@gmail.com");
         Contacto vick = new Contacto("Vick", "vick@ucp.com");
         
-        Email email1 = new Email("Test UCP 1", "Contenido", laura);
-        Email email2 = new Email("Test Gmail", "Contenido", aylen);
-        Email email3 = new Email("Test UCP 2", "Contenido", vick);
+        Email email1 = new Email("Test UCP 1", "Contenido", laura, Arrays.asList());
+        Email email2 = new Email("Test Gmail", "Contenido", aylen, Arrays.asList());
+        Email email3 = new Email("Test UCP 2", "Contenido", vick, Arrays.asList());
         
         List<Email> todosLosEmails = Arrays.asList(email1, email2, email3);
         
@@ -123,8 +117,8 @@ public class BandejaTest {
     @Test
     public void testNoLeidosEnInbox() {
     Contacto remitente = new Contacto("Carlos", "carlos@ucp.com");
-    Email e1 = new Email("Tema 1", "Sin leer", remitente);
-    Email e2 = new Email("Tema 2", "Ya leído", remitente);
+    Email e1 = new Email("Tema 1", "Sin leer", remitente, Arrays.asList());
+    Email e2 = new Email("Tema 2", "Ya leído", remitente, Arrays.asList());
     e2.marcarComoLeido();
 
     List<Email> emails = Arrays.asList(e1, e2);
@@ -140,8 +134,8 @@ public class BandejaTest {
   public void testFiltrarConPredicado() {
     Contacto remitente = new Contacto("Laura", "laura@ucp.com");
 
-    Email e1 = new Email("Reunión urgente", "Recordatorio de reunión", remitente);
-    Email e2 = new Email("Comunicado", "Nada importante", remitente);
+    Email e1 = new Email("Reunión urgente", "Recordatorio de reunión", remitente, Arrays.asList());
+    Email e2 = new Email("Comunicado", "Nada importante", remitente, Arrays.asList());
 
     List<Email> emails = Arrays.asList(e1, e2);
 

@@ -1,4 +1,5 @@
 package com.mycompany.app;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,46 +19,20 @@ public class UsuarioTest {
     assertEquals("juan.perez@example.com", usuario.getEmail());
   }
 
-  @Test
-  public void testUsuarioMarcaEmailManualmente() {
-    //crear usuarios (no Contacto)
-    Usuario ana = new Usuario("Ana", "ana@empresa.com");
-    Usuario luis = new Usuario("Luis", "luis@empresa.com");
-    
-    // Verificar que inicialmente no están marcados como leído
-    assertFalse(ana.isLeido(), "Ana inicialmente no debería estar marcada como leído");
-    assertFalse(luis.isLeido(), "Luis inicialmente no debería estar marcado como leído");
-    
-    // Ana decide marcarse como "leído" (tal vez indica que ya revisó sus emails)
-    ana.marcarComoLeido();
-    assertTrue(ana.isLeido(), "Ana debería estar marcada como leído después de marcarComoLeido()");
-    
-    // Luis permanece sin marcar
-    assertFalse(luis.isLeido(), "Luis debería seguir sin estar marcado como leído");
-    
-    // Ana puede volver a marcarse como no leído
-    ana.marcarComoNoLeido();
-    assertFalse(ana.isLeido(), "Ana debería estar sin marcar después de marcarComoNoLeido()");
-    
-    // Luis se marca como leído
-    luis.marcarComoLeido();
-    assertTrue(luis.isLeido(), "Luis debería estar marcado como leído");
-  }
+
 
   @Test
-  public void testUsuarioMarcaEmailsRecibidos() {
+  public void testMarcarComoLeidoYNoLeido() {
     Contacto remitente = new Contacto("Carlos", "carlos@empresa.com");
     Contacto anaContacto = new Contacto("Ana", "ana@empresa.com");
     Contacto luisContacto = new Contacto("Luis", "luis@empresa.com");
     
-    Usuario anaUsuario = new Usuario("Ana", "ana@empresa.com");
+    Usuario anaUsuario = new Usuario("Ana", "ana@empresa.com", anaContacto);
     Usuario luisUsuario = new Usuario("Luis", "luis@empresa.com");
     
     //enviar el correo
     Email email = new Email("Reunión importante",
-                            "Mañana a las 10am", remitente);
-    email.getRecipients().add(anaContacto);
-    email.getRecipients().add(luisContacto);
+                            "Mañana a las 10am", remitente, Arrays.asList(anaContacto, luisContacto));
     
     SendMail gestor = new SendMail();
     gestor.enviar(email, java.util.Arrays.asList(anaContacto, luisContacto));
@@ -75,7 +50,7 @@ public class UsuarioTest {
     assertFalse(emailLuis.isLeido(), "Email de Luis debería estar sin leer inicialmente");
     
     //ana marca manualmente como leido
-    emailAna.marcarComoLeido(); 
+    anaUsuario.marcarComoLeido(emailAna); 
     assertTrue(emailAna.isLeido());
 
     assertFalse(emailLuis.isLeido(), "Email de Luis debería seguir sin leer");
@@ -85,42 +60,93 @@ public class UsuarioTest {
     assertTrue(luisContacto.getBandejaEntrada().getEmails().get(0).isLeido());
     
     // ana marca su correo como no leido
-    emailAna.marcarComoNoLeido();
+    anaUsuario.marcarComoNoLeido(emailAna);
     assertFalse(emailAna.isLeido(), "Email de Ana debería estar sin leer después de marcarComoNoLeido");
     
     // verifico que el correo de ana se marcó como no leido
     assertFalse(emailAna.isLeido(), "Correo de Ana inicialmente no leído");
-    anaUsuario.marcarComoLeido();
+    anaUsuario.marcarComoLeido(emailAna);
     assertTrue(emailAna.isLeido(), "Ana marco como leído su correo");
   }
 
-  @Test
+  @Test //?????
   public void testRelacionUsuarioContacto() {
     // Crear usuario - automáticamente crea contacto asociado
     Usuario ana = new Usuario("Ana García", "ana@empresa.com");
-    
+
     // Verificar que el contacto se creó automáticamente
     assertNotNull(ana.getContacto(), "Usuario debería tener un contacto asociado");
     assertEquals("Ana García", ana.getContacto().getNombre());
     assertEquals("ana@empresa.com", ana.getContacto().getEmail());
-    
+
     // Verificar que el contacto tiene bandejas
     assertNotNull(ana.getContacto().getBandejaEntrada(), "Contacto debería tener bandeja de entrada");
     assertNotNull(ana.getContacto().getBandejaSalida(), "Contacto debería tener bandeja de salida");
-    
+
     // Crear y enviar un email al contacto de Ana
     Contacto remitente = new Contacto("Luis", "luis@empresa.com");
-    Email email = new Email("Test", "Contenido de prueba", remitente);
-    
+    Email email = new Email("Test", "Contenido de prueba", remitente, Arrays.asList(ana.getContacto()));
+
     ana.getContacto().getBandejaEntrada().agregarEmail(email);
-    
+
     // Verificar que Ana puede eliminar el email usando su poder de usuario
     assertFalse(email.isEliminado(), "Email inicialmente no debería estar eliminado");
     ana.eliminarEmail(email);
     assertTrue(email.isEliminado(), "Email debería estar marcado como eliminado después de que Ana lo elimine");
-    
+
     // Ana puede restaurar el email
     ana.restaurarEmail(email);
     assertFalse(email.isEliminado(), "Email debería estar restaurado");
   }
+  
+
+  @Test
+  public void testRestaurarEmail() {
+    // Crear usuarios y contactos
+    Contacto remitente = new Contacto("Carlos", "carlos@empresa.com");
+    Contacto martuContacto = new Contacto("Martu", "martu@empresa.com");
+    Usuario martuUsuario = new Usuario("Martu", "martu@empresa.com", martuContacto);
+
+    // Crear y enviar un email
+    Email emailImportante = new Email(
+        "Proyecto Urgente",
+        "Necesitamos revisar el proyecto antes del viernes.",
+        remitente,
+        Arrays.asList(martuContacto));
+
+    SendMail gestor = new SendMail();
+    gestor.enviar(emailImportante, Arrays.asList(martuContacto));
+
+    //verificar que el email llegó a la bandeja
+    assertEquals(1, martuContacto.getBandejaEntrada().getEmails().size(),
+        "Martu debería tener 1 email en su bandeja");
+
+    //copia en bandeja de martu
+    Email emailEnBandeja = martuContacto.getBandejaEntrada().getEmails().get(0);
+
+    //verificar estado inicial
+    assertFalse(emailEnBandeja.isEliminado(), "Email inicialmente no debe estar eliminado");
+    assertTrue(martuContacto.getBandejaEntrada().getEmails().contains(emailEnBandeja),
+        "Email debe estar en la bandeja inicialmente");
+
+    //el usuario elimina el email
+    martuUsuario.eliminarEmail(emailEnBandeja);
+
+    // Verificar que se marcó como eliminado y se removió de la bandeja
+    assertTrue(emailEnBandeja.isEliminado(), "Email debería estar marcado como eliminado");
+    assertEquals(0, martuContacto.getBandejaEntrada().getEmails().size(),"Bandeja debería estar vacía después de eliminar");
+    assertFalse(martuContacto.getBandejaEntrada().getEmails().contains(emailEnBandeja),"Email no debería estar en la bandeja después de eliminarlo");
+
+    // el usuario restaura el email
+    martuUsuario.restaurarEmail(emailEnBandeja);
+
+    //verificar que se desmarcó como eliminado
+    assertFalse(emailEnBandeja.isEliminado(), "Email debería estar restaurado (no eliminado)");
+
+    // Verificar que el email restaurado está de vuelta en la bandeja
+    assertEquals(1, martuContacto.getBandejaEntrada().getEmails().size(),"Bandeja debería tener el email restaurado");
+    assertTrue(martuContacto.getBandejaEntrada().getEmails().contains(emailEnBandeja));
+    assertFalse(emailEnBandeja.isEliminado());
+  }
+
 }

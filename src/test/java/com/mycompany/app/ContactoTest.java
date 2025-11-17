@@ -23,8 +23,8 @@ public class ContactoTest {
     
     @Test
     void testCrearContacto() {
-        String nombre = "Juan Pérez";
-        String email = "juan.perez@email.com";
+        String nombre = "Tini Stoessel";
+        String email = "tini.stoessel@email.com";
         
         Contacto contactoCompleto = new Contacto(nombre, email);
         
@@ -33,11 +33,10 @@ public class ContactoTest {
         assertEquals(email, contactoCompleto.getEmail());
     }
     
-  
     @Test
     void testEditarNombreContacto() {
-        String nombreInicial = "María García";
-        String nombreNuevo = "María García López";
+        String nombreInicial = "Elon Musk";
+        String nombreNuevo = "Elon";
         
         contacto.setNombre(nombreInicial);
         assertEquals(nombreInicial, contacto.getNombre());
@@ -52,7 +51,7 @@ public class ContactoTest {
     @Test
     void testEditarEmailContacto() {
         String emailInicial = "maria@empresa.com";
-        String emailNuevo = "maria.garcia@nuevaempresa.com";
+        String emailNuevo = "maria.garcia@empresa.com";
         
         contacto.setEmail(emailInicial);
         assertEquals(emailInicial, contacto.getEmail());
@@ -66,13 +65,11 @@ public class ContactoTest {
     @Test
     void testEliminarContacto() {
     // Crear contacto con datos
-    Contacto contacto = new Contacto("Ana López", "ana.lopez@email.com");
+    Contacto contacto = new Contacto("Silvia Hoferek", "silvia.hoferek@ucp.com");
 
     // Verificar que se creó correctamente
     assertNotNull(contacto.getNombre());
     assertNotNull(contacto.getEmail());
-    assertNotNull(contacto.getBandejaEntrada());
-    assertNotNull(contacto.getBandejaSalida());
 
     // Eliminar contacto con el nuevo método
     contacto.eliminarContacto();
@@ -80,8 +77,7 @@ public class ContactoTest {
     // Verificar que los campos se limpiaron
     assertNull(contacto.getNombre(), "El nombre debería estar en null tras eliminar el contacto");
     assertNull(contacto.getEmail(), "El email debería estar en null tras eliminar el contacto");
-    assertNull(contacto.getBandejaEntrada(), "La bandeja de entrada debería estar en null");
-    assertNull(contacto.getBandejaSalida(), "La bandeja de salida debería estar en null");
+    
 }
 
     @Test

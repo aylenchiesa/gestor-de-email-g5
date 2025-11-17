@@ -1,7 +1,7 @@
 package com.mycompany.app;
 
 
-public class Usuario implements IMarcador {
+public class Usuario {
     private String nombre;
     private String email;
     private Contacto contacto; // Relación Usuario -> Contacto
@@ -39,34 +39,29 @@ public class Usuario implements IMarcador {
         return contacto;
     }
 
-    @Override
-    public void marcarComoLeido() {
-        this.leido = true;
+    public void marcarComoLeido(Email email) {
+        email.marcarComoLeido();
     }
 
-    @Override
-    public void marcarComoNoLeido() {
-      this.leido = false;
+    public void marcarComoNoLeido(Email email) {
+      email.marcarComoNoLeido();
     }
     
-    @Override
-    public boolean isLeido() {
-      return leido;
-    }
 
     // Usuario puede eliminar emails de su contacto asociado
     public void eliminarEmail(Email email) {
-    email.eliminado = true; // Marcar como eliminado (Bandera en el Email)
-    
-    if (contacto != null) {
-        //usa el método de Bandeja para removerlo de la lista interna
-        contacto.getBandejaEntrada().removerEmail(email); 
+      email.eliminado = true; // Marcar como eliminado (Bandera en el Email)
+        if (contacto != null) {
+            //usa el método de Bandeja para removerlo de la lista interna
+            contacto.getBandejaEntrada().removerEmail(email); 
+        }
     }
-}
 
-    // Usuario puede restaurar emails
     public void restaurarEmail(Email email) {
-      email.restaurar(); // Usar método existente en Email
+      email.restaurar(); 
+      if (contacto != null && !contacto.getBandejaEntrada().getEmails().contains(email)) {
+          contacto.getBandejaEntrada().agregarEmail(email);
+      }
     }
     
 /*    public void eliminarEmail(Email email) {

@@ -15,8 +15,8 @@ public class Email implements IMarcador {
     private boolean borrador;
     public boolean eliminado;
 
-    //constructor
-    public Email(String subject, String content, Contacto sender) {
+    //constructor básico sin destinatarios
+    /*public Email(String subject, String content, Contacto sender) {
         this.subject = subject;
         this.content = content;
         this.sender = sender;
@@ -25,18 +25,18 @@ public class Email implements IMarcador {
         this.important = false; // por defecto no es importante
         this.borrador = false; // por defecto no es borrador
         this.eliminado = false; // por defecto no eliminado
-    }
+    }*/
 
-    public Email(String subject2, String content2, Contacto sender2, List<Contacto> recipients2, boolean leido2,
-        boolean important2, boolean borrador2, boolean eliminado2) {
-      this.subject = subject2;
-      this.content = content2;
-      this.sender = sender2;
-      this.recipients = new ArrayList<>(recipients2);
-      this.leido = leido2;
-      this.important = important2;
-      this.borrador = borrador2;
-      this.eliminado = eliminado2;
+    //constructor con destinatarios
+    public Email(String subject, String content, Contacto sender, List<Contacto> recipients) {
+        this.subject = subject;
+        this.content = content;
+        this.sender = sender;
+        this.recipients = new ArrayList<>(recipients); // Crear copia para evitar modificaciones externas
+        this.leido = false;
+        this.important = false;
+        this.borrador = false;
+        this.eliminado = false;
     }
 
     //uso básico
@@ -89,8 +89,8 @@ public class Email implements IMarcador {
     }
 
     public Email copiar() {
-      Email copia = new Email(this.getSubject(), this.getContent(), this.getSender());
-      copia.getRecipients().addAll(this.getRecipients());
+      Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.getRecipients());
+      //copia.getRecipients().addAll(this.getRecipients());
       
       return copia;
 

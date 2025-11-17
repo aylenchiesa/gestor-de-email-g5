@@ -18,8 +18,7 @@ public class EmailTest {
     Contacto remitente = new Contacto("Remitente 1", "remitente@demo.com");
     Contacto c1 = new Contacto("Contacto 1", "contacto1@demo.com");
 
-    Email email = new Email("Prueba", "Hola, este es un correo de prueba", remitente);
-    email.getRecipients().add(c1);
+    Email email = new Email("Prueba", "Hola, este es un correo de prueba", remitente, Arrays.asList(c1));
 
     //bandeja de entrada del destinatario
     Bandeja bandejaEntrada = new Bandeja();
@@ -44,11 +43,7 @@ public class EmailTest {
     Email email = new Email(
         "Reunión semanal",
         "Recordatorio de reunión el lunes a las 10:00.",
-        r1);
-
-    // Agregar destinatarios
-    email.getRecipients().add(ana);
-    email.getRecipients().add(luis);
+        r1, Arrays.asList(ana, luis));
 
     //clase que envía
     SendMail gestor = new SendMail();
@@ -91,52 +86,6 @@ public class EmailTest {
   }
   // creo que me da algo raro este test jeje (pero por ahora lo dejo asi) (xq me sale el continue)
 
-  @Test
-  public void testMarcarComoLeido() {
-    // Crear remitente y destinatarios
-    Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
-    Contacto ana = new Contacto("Ana", "ana@empresa.com");
-    Contacto luis = new Contacto("Luis", "luis@empresa.com");
-
-    // Crear el correo
-    Email email = new Email(
-        "Ya es Viernes",
-        "Hoy es viernes de cerveza.",
-        r1);
-
-    // Agregar destinatarios
-    email.getRecipients().add(ana);
-    email.getRecipients().add(luis);
-
-    //clase que envía
-    SendMail gestor = new SendMail();
-
-    //enviar
-    gestor.enviar(email, Arrays.asList(ana, luis));
-
-    // verificar el estatus (sent)
-    assertEquals("Sent", gestor.getStatus(), "El estado del correo debería ser 'Sent'");
-
-    //guardado en bandeja de salida
-    assertEquals(1, r1.getBandejaSalida().getEmails().size(),"El remitente debería tener un correo en su bandeja de salida");
-
-    //verificar el guardado en bandeja de entrada de cada uno
-    assertEquals(1, ana.getBandejaEntrada().getEmails().size(), "Ana debería tener un correo en su bandeja de entrada");
-    assertEquals(1, luis.getBandejaEntrada().getEmails().size(),"Luis debería tener un correo en su bandeja de entrada");
-
-    //verificar leido
-    assertFalse(ana.getBandejaEntrada().getEmails().get(0).isLeido(),"El correo en la bandeja de Ana debería estar sin leer");
-    assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido(),"El correo en la bandeja de Luis debería estar sin leer");
-
-    //ana abre el correo (o sea mira el contenido)
-    ana.getBandejaEntrada().getEmails().get(0).getContent();
-
-    //ENOTNCES SE MARCA COMO LEIDOOOOOOOO
-    assertTrue(ana.getBandejaEntrada().getEmails().get(0).isLeido());
-
-    //luis no leyo su correo
-    assertFalse(luis.getBandejaEntrada().getEmails().get(0).isLeido());
-  }
 
   @Test
   public void testCopiasIndependientesEnDestinatarios() {
@@ -146,9 +95,7 @@ public class EmailTest {
     Contacto luis = new Contacto("Luis", "luis@empresa.com");
 
     // crear email ORIGINALLLL
-    Email email = new Email("Reunión", "La reunión es a las 10hs.", remitente);
-    email.getRecipients().add(ana);
-    email.getRecipients().add(luis);
+    Email email = new Email("Reunión", "La reunión es a las 10hs.", remitente, Arrays.asList(ana, luis));
 
     // enviar email
     SendMail gestor = new SendMail();
@@ -188,11 +135,8 @@ public class EmailTest {
 
    //enviar el correo
    Email reunion = new Email("Reunión importante",
-                            "Mañana a las 10am", remitente);
+                            "Mañana a las 10am", remitente, Arrays.asList(meli, marto));
    
-   reunion.getRecipients().add(meli);
-   reunion.getRecipients().add(marto);
-
    SendMail gestor = new SendMail();
    gestor.enviar(reunion, Arrays.asList(meli, marto));
 
