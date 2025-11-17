@@ -202,6 +202,8 @@ public class EmailTest {
    Email emailMeli = meli.getBandejaEntrada().getEmails().get(0);
    Email emailMarto = marto.getBandejaEntrada().getEmails().get(0);
 
+   assertNotSame(emailMeli, emailMarto);
+
    //verif bandeja de entrada de cada uno
    assertEquals(1, meli.getBandejaEntrada().getEmails().size());
    assertEquals(1, marto.getBandejaEntrada().getEmails().size());
