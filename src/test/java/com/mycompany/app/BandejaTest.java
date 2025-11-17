@@ -60,7 +60,7 @@ public class BandejaTest {
     }
     
     @Test
-    public void testIsEliminado() {
+    public void testUsuarioEliminaEmail() {
 
       Contacto r1 = new Contacto("Carlos", "carlos@empresa.com");
       Contacto martu = new Contacto("Martu", "martu@empresa.com");
