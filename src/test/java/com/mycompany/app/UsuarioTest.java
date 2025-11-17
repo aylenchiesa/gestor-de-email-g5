@@ -66,7 +66,7 @@ public class UsuarioTest {
     assertEquals(1, anaContacto.getBandejaEntrada().getEmails().size());
     assertEquals(1, luisContacto.getBandejaEntrada().getEmails().size());
     
-    //pongo en una nueva clase
+    //correos clonados en bandejas de cada contacto
     Email emailAna = anaContacto.getBandejaEntrada().getEmails().get(0);
     Email emailLuis = luisContacto.getBandejaEntrada().getEmails().get(0);
     
@@ -89,9 +89,9 @@ public class UsuarioTest {
     assertFalse(emailAna.isLeido(), "Email de Ana debería estar sin leer después de marcarComoNoLeido");
     
     // verifico que el correo de ana se marcó como no leido
-    assertFalse(anaUsuario.isLeido(), "Ana usuario inicialmente no leído");
+    assertFalse(emailAna.isLeido(), "Correo de Ana inicialmente no leído");
     anaUsuario.marcarComoLeido();
-    assertTrue(anaUsuario.isLeido(), "Ana usuario debería estar marcado como leído");
+    assertTrue(emailAna.isLeido(), "Ana marco como leído su correo");
   }
 
   @Test
