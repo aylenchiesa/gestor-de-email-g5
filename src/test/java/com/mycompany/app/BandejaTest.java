@@ -202,11 +202,11 @@ public class BandejaTest {
     gestor.enviar(correo3, Arrays.asList(karol, rosalia));
     gestor.enviar(correo4, Arrays.asList(rosalia));
 
-    karolUser.marcarComoLeido(correo3);
-
+    
     List<Email> bandejaDeKarol = karol.getBandejaEntrada().getEmails();
     //List<Email> todosLosCorreos = List.of(correo1, correo2, correo3, correo4);
     Email copiaCorreo3Karol = bandejaDeKarol.get(2);
+    karolUser.marcarComoLeido(copiaCorreo3Karol);
 
 
     List<Email> resultadoKarol = new Filtro().filtroNoLeidosYPara(bandejaDeKarol, "karol@reggaeton.com");
