@@ -225,11 +225,11 @@ public class BandejaTest {
   }
 
   @Test
-    public void testFiltrarPorDominioGenerico() {
+public void testFiltrarPorDominioTrap() {
     Contacto lali = new Contacto("Lali", "lali@pop.com");
-    Contacto tini = new Contacto("Tini", "tini@ucp.com");
-    Contacto maria = new Contacto("María Becerra", "maria@ucp.com");
-    Contacto nicki = new Contacto("Nicki", "nicki@trap.com");
+    Contacto tini = new Contacto("Tini", "tini@trap.com");
+    Contacto maria = new Contacto("María Becerra", "maria@trap.com");
+    Contacto nicki = new Contacto("Nicki", "nicki@reggaeton.com");
 
     Email correo1 = new Email("Nuevo tema", "Lali propone colaboración", lali, List.of(tini));
     Email correo2 = new Email("Gira", "Fechas confirmadas", tini, List.of(lali));
@@ -238,12 +238,13 @@ public class BandejaTest {
 
     List<Email> todos = List.of(correo1, correo2, correo3, correo4);
 
-    List<Email> resultado = new Filtro().filtrarPorDominio(todos, "ucp.com");
+    List<Email> resultado = new Filtro().filtrarPorDominio(todos, "trap.com");
 
-    assertEquals(2, resultado.size(), "Debería encontrar 2 correos enviados desde el dominio ucp.com");
+    assertEquals(2, resultado.size(), "Debería encontrar 2 correos enviados desde el dominio trap.com");
     assertTrue(resultado.contains(correo2), "El correo de Tini debería estar incluido");
     assertTrue(resultado.contains(correo3), "El correo de María debería estar incluido");
   }
+
 }
 
 
