@@ -50,7 +50,7 @@ public class Usuario {
 
     // Usuario puede eliminar emails de su contacto asociado
     public void eliminarEmail(Email email) {
-      email.eliminado = true; // Marcar como eliminado (Bandera en el Email)
+      email.eliminado = true; // Marcar como eliminado 
         if (contacto != null) {
             //usa el método de Bandeja para removerlo de la lista interna
             contacto.getBandejaEntrada().removerEmail(email); 
