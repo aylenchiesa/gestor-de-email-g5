@@ -147,12 +147,12 @@ public class BandejaTest {
 
   @Test
   public void testFiltroDominioYTextoConCantantes() {
-    // Crear contactos famosos
+    // crear contactos 
     Contacto shakira = new Contacto("Shakira", "shakira@pop.com");
     Contacto badbunny = new Contacto("Bad Bunny", "badbunny@trap.com");
     Contacto taylor = new Contacto("Taylor Swift", "taylor@pop.com");
 
-    // Crear correos con contenido musical
+    // crear correos 
     Email correo1 = new Email("Nuevo hit", "Shakira lanza 'Chantaje'", shakira, List.of(taylor));
     Email correo2 = new Email("Colaboración", "Bad Bunny propone cancion con Shakira", badbunny, List.of(shakira));
     Email correo3 = new Email("Gira mundial", "Taylor anuncia tour con 87 fechas y 3 cambios de vestuario por show", taylor, List.of(shakira));
@@ -161,20 +161,58 @@ public class BandejaTest {
 
     List<Email> todosLosCorreos = List.of(correo1, correo2, correo3, correo4, correo5);
 
-    // Filtrar por dominio "pop.com" y texto "hit"
+    // filtrar por dominio "pop.com" y texto "hit"
     List<Email> resultado = new Filtro().filtroDominioYTexto(todosLosCorreos, "pop.com", "hit");
 
-    // Verificaciones
+    // verficarrrr
     assertEquals(1, resultado.size(), "Debe encontrar solo 1 correo de pop.com con 'hit'");
     assertEquals("Nuevo hit", resultado.get(0).getSubject());
 
-    // Otro caso: dominio "trap.com" y texto "conejo"
+    // otro caso nmsss con "trap.com" y texto "conejo"
     List<Email> resultado2 = new Filtro().filtroDominioYTexto(todosLosCorreos, "trap.com", "ojitos");
     assertEquals(1, resultado2.size(), "Debe encontrar 1 correo de trap.com con 'ojitos'");
     assertEquals("Nuevo hit", resultado2.get(0).getSubject());
 
   }
 
+  @Test
+  public void testFiltroNoLeidosYParaConCantantes() {
+    Contacto daddy = new Contacto("Daddy Yankee", "daddy@reggaeton.com");
+    Contacto karol = new Contacto("Karol G", "karol@reggaeton.com");
+    Contacto jbalvin = new Contacto("J Balvin", "balvin@colombia.com");
+    Contacto rosalia = new Contacto("Rosalía", "rosalia@motomami.com");
+
+    Email correo1 = new Email("Gasolina remix", "Daddy quiere reversionar el clásico con Karol", daddy, List.of(karol)) {
+        @Override public boolean isLeido() { return false; }
+    };
+
+    Email correo2 = new Email("Motomami tour", "Rosalía invita a Karol a abrir su show", rosalia, List.of(karol)) {
+        @Override public boolean isLeido() { return false; }
+    };
+
+    Email correo3 = new Email("Colaboración", "J Balvin propone tema con Karol y Rosalía", jbalvin, List.of(karol, rosalia)) {
+        @Override public boolean isLeido() { return true; }
+    };
+
+    Email correo4 = new Email("Fiesta privada", "Daddy organiza fiesta con reggaetón clásico", daddy, List.of(rosalia)) {
+        @Override public boolean isLeido() { return false; }
+    };
+
+    Email correo5 = new Email("Empanadas veganas", "Karol comparte receta sin carne", karol, List.of(jbalvin)) {
+        @Override public boolean isLeido() { return false; }
+    };
+
+    List<Email> todosLosCorreos = List.of(correo1, correo2, correo3, correo4, correo5);
+
+    List<Email> resultadoKarol = new Filtro().filtroNoLeidosYPara(todosLosCorreos, "karol@reggaeton.com");
+    assertEquals(2, resultadoKarol.size(), "Karol debería tener 2 correos no leídos (sin contar el de Balvin que ya leyó)");
+
+    List<Email> resultadoRosalia = new Filtro().filtroNoLeidosYPara(todosLosCorreos, "rosalia@motomami.com");
+    assertEquals(1, resultadoRosalia.size(), "Rosalía solo tiene 1 correo no leído, el de Daddy Yankee");
+
+    List<Email> resultadoBalvin = new Filtro().filtroNoLeidosYPara(todosLosCorreos, "balvin@colombia.com");
+    assertEquals(1, resultadoBalvin.size(), "Balvin tiene 1 correo no leído con receta vegana... ¿se animará a probarla?");
+}
 
 
 }
