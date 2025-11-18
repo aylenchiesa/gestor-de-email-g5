@@ -23,7 +23,7 @@ public class SendMail implements ISend {
       copia.getCcRecipients().clear();
     } 
     //destinatarios cc
-    for (Contacto destinatarioCC : email.getCcRecipients()) { // <-- NUEVA iteración
+    for (Contacto destinatarioCC : email.getCcRecipients()) {
       Email copiaCC = email.copiar();
       destinatarioCC.getBandejaEntrada().agregarEmail(copiaCC);
       //eliminar la lista CC de la copia enviada

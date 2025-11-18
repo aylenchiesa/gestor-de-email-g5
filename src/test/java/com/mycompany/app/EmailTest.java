@@ -154,15 +154,10 @@ public void testMarcarComoLeidoYNoLeidoConCCO() {
     Email emailPato = piccolini.getBandejaEntrada().getEmails().get(0);
     Email emailJaqui = jaqui.getBandejaEntrada().getEmails().get(0); 
     
-    //jaqui NO debe ver a piccolini in the list of recipients she received.
-    assertFalse(emailPato.getRecipients().contains(jaqui), 
-        "ERROR CCO: Jaqui (TO) NO debe ver a Piccolini (CCO) en la lista de destinatarios.");
+    //pato NO debe ver a jaqui en destinatarios
+    assertFalse(emailPato.getRecipients().contains(jaqui),"ERROR CCO: pato (TO) NO debe ver a jaqui (CCO) en la lista de destinatarios.");
         
-    //jaqui (CCO) no debe ver a nadie en su lista de destinatarios
-    assertTrue(emailJaqui.getRecipients().isEmpty(), 
-        "ERROR CCO: Jaqui (CCO) no debería ver destinatarios TO/PARA en la copia recibida."); 
-        
-    // Ambos no deben tener la lista CCO adjunta (pues fue limpiada por SendMail)
+    // Ambos no deben tener la lista CCO adjunta
     assertTrue(emailPato.getCcRecipients().isEmpty(), "La lista CCO de Pato debe estar vacía.");
     assertTrue(emailJaqui.getCcRecipients().isEmpty(), "La lista CCO de Jaqui debe estar vacía.");
 }

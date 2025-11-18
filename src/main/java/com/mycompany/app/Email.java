@@ -52,6 +52,7 @@ public class Email implements IMarcador {
     this.content = content;
     this.sender = sender;
     this.recipients = new ArrayList<>();
+    this.ccRecipients = new ArrayList<>();
     this.leido = false;
     this.important = false;
     this.borrador = isBorrador;
