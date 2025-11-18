@@ -185,6 +185,7 @@ public class BandejaTest {
 
   @Test
   public void testFiltroNoLeidosYParaConCantantes() {
+    SendMail gestor = new SendMail();
     Contacto daddy = new Contacto("Daddy Yankee", "daddy@reggaeton.com");
     Contacto karol = new Contacto("Karol G", "karol@reggaeton.com");
     Contacto jbalvin = new Contacto("J Balvin", "balvin@colombia.com");
@@ -195,12 +196,18 @@ public class BandejaTest {
     Email correo2 = new Email("Motomami tour", "Rosalía invita a Karol a abrir su show", rosalia, List.of(karol)); 
     Email correo3 = new Email("Colaboración", "J Balvin propone tema con Karol y Rosalía", jbalvin, List.of(karol, rosalia)); 
     Email correo4 = new Email("Fiesta privada", "Daddy organiza fiesta con reggaetón clásico", daddy, List.of(rosalia));
-    
+   
+    gestor.enviar(correo1, Arrays.asList(karol));
+    gestor.enviar(correo2, Arrays.asList(karol));
+    gestor.enviar(correo3, Arrays.asList(karol, rosalia));
+    gestor.enviar(correo4, Arrays.asList(rosalia));
+
     karolUser.marcarComoLeido(correo3);
 
+    List<Email> bandejaDeKarol = karol.getBandejaEntrada().getEmails();
     List<Email> todosLosCorreos = List.of(correo1, correo2, correo3, correo4);
 
-    List<Email> resultadoKarol = new Filtro().filtroNoLeidosYPara(todosLosCorreos, "karol@reggaeton.com");
+    List<Email> resultadoKarol = new Filtro().filtroNoLeidosYPara(bandejaDeKarol, "karol@reggaeton.com");
     assertEquals(2, resultadoKarol.size(), "Karol debería tener 2 correos no leídos (sin contar el de Balvin que ya leyó)");
 
     List<Email> resultadoRosalia = new Filtro().filtroNoLeidosYPara(todosLosCorreos, "rosalia@motomami.com");
