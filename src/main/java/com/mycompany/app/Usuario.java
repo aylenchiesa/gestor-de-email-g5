@@ -47,18 +47,10 @@ public class Usuario {
     email.marcarComoNoLeido();
   }
 
-  public void marcarComoFavorito(Email emailAEditar) {
-    if (this.contacto == null) return; 
-    List<Email> bandeja = this.contacto.getBandejaEntrada().getEmails();
-    for (Email emailEnBandeja : bandeja) {
-        if (emailEnBandeja == emailAEditar) {
-            emailEnBandeja.marcarComoFavorito();
-            return;
-        }
+  public void marcarComoFavorito(Email email) {
+    email.marcarComoFavorito();
     }
-}
 
-  
   // Usuario puede eliminar emails de su contacto asociado
   public void eliminarEmail(Email email) {
     email.eliminado = true; // Marcar como eliminado 
