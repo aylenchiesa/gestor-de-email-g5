@@ -14,6 +14,8 @@ public class Email implements IMarcador {
   private boolean important;
   private boolean borrador;
   public boolean eliminado;
+  private boolean favorito;
+
 
     //constructor sin destinatarios
   public Email(String subject, String content, Contacto sender) {
@@ -25,6 +27,7 @@ public class Email implements IMarcador {
       this.important = false; // por defecto no es importante
       this.borrador = false; // por defecto no es borrador
       this.eliminado = false; // por defecto no eliminado
+      this.favorito = false; //por defecto no esta en fav
   }
 
   //constructor con destinatarios
@@ -37,6 +40,7 @@ public class Email implements IMarcador {
     this.important = false;
     this.borrador = false;
     this.eliminado = false;
+    this.favorito = false;
   }
   
   //constructor para borrador 
@@ -49,6 +53,7 @@ public class Email implements IMarcador {
     this.important = false;
     this.borrador = isBorrador;
     this.eliminado = false;
+    this.favorito = false;
 }
   //uso básico
   public void restaurar() {
@@ -124,4 +129,13 @@ public class Email implements IMarcador {
   public void marcarComoEnviado() {
       this.borrador = false;
   }
+
+  public void marcarComoFavorito() {
+    this.favorito = true;
+  }
+
+  public boolean esFavorito() {
+    return favorito;
+  }
+
 }
