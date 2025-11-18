@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 public class EmailTest {
 
-  //pruebaCI
-
   @Test
   public void testEnvioDeCorreo() {//raro este test
 
@@ -114,7 +112,6 @@ public class EmailTest {
   public void testCrearBorrador() {
     Contacto dualipa = new Contacto("Carlos", "dualipa@empresa.com");
     Usuario dualipaUser = new Usuario("Carlos User", "dualipa@empresa.com", dualipa);
-    Contacto martu = new Contacto("Martu", "martu@empresa.com");
 
     Email borrador = dualipaUser.crearBorrador(
         "Prueba borrador",
@@ -123,49 +120,44 @@ public class EmailTest {
     assertTrue(borrador.isBorrador());
 
     //borrador está en la bandeja de borradores del remitente
-    assertEquals(1, dualipa.getBandejaBorradores().getEmails().size(),
-        "El contacto debe tener 1 email en su bandeja de borradores.");
+    assertEquals(1, dualipa.getBandejaBorradores().getEmails().size(),"El contacto debe tener 1 email en su bandeja de borradores.");
     assertTrue(dualipa.getBandejaBorradores().getEmails().contains(borrador));
-
   }
 
   @Test
   public void testEditarYEnviarBorrador() {
-    Contacto dualipa = new Contacto("Carlos", "dualipa@empresa.com");
-    Usuario dualipaUser = new Usuario("Carlos User", "dualipa@empresa.com", dualipa);
-    Contacto martu = new Contacto("Martu", "martu@empresa.com");
+    Contacto dualipa = new Contacto("Dua Lipa", "dualipa@empresa.com");
+    Usuario dualipaUser = new Usuario("Dua Lipa", "dualipa@empresa.com", dualipa);
+    Contacto rodridepaul = new Contacto("Rodri De Paul", "rodridepaul@empresa.com");
 
     Email borrador = dualipaUser.crearBorrador(
         "Prueba borrador",
-        "Este es el contenido inicial del borrador.");
+        "Cerveza el viernes.");
 
     //editar el borrador
     String nuevoTitulo = "Reunión de cerveza, Martes 10 AM";
-    String nuevoContenido = "El viernes no, mejor el martes. Detalles en el adjunto.";
+    String nuevoContenido = "El viernes no, mejor el martes.";
 
     dualipaUser.editarBorrador(borrador, nuevoTitulo, nuevoContenido);
 
     assertEquals(nuevoTitulo, borrador.getSubject(), "El asunto del borrador debe haberse actualizado.");
     assertEquals(nuevoContenido, borrador.getContent(), "El contenido del borrador debe haberse actualizado.");
-    assertTrue(borrador.isBorrador(), "El email debe seguir marcado como borrador después de la edición.");
+    assertTrue(borrador.isBorrador());
 
-    //enviar el borrador
-    // Usamos el método que se agregó al Usuario para gestionar la transición
-    /*dualipaUser.enviarBorrador(borrador, Arrays.asList(martu));
+    //ahora enviamos el borrador
+    dualipaUser.enviarBorrador(borrador, Arrays.asList(rodridepaul));
+    assertFalse(borrador.isBorrador());
     
-    // Verificar 4.1: El objeto original ya no es un borrador
-    assertFalse(borrador.isBorrador(), "Tras el envío, el email no debe estar marcado como borrador.");
+    //borradores vaciooo
+    assertEquals(0, dualipa.getBandejaBorradores().getEmails().size());
     
-    // Verificar 4.2: Se removió de la bandeja de borradores del remitente
-    assertTrue(dualipa.getBandejaBorradores().getEmails().isEmpty(), "La bandeja de borradores debe estar vacía después de enviar.");
+    //email llegó al destinatario (rodridepaul)
+    assertEquals(1, rodridepaul.getBandejaEntrada().getEmails().size());
     
-    // Verificar 4.3: El email llegó al destinatario (Martu)
-    assertEquals(1, martu.getBandejaEntrada().getEmails().size(), "Martu debe tener 1 email en su bandeja de entrada.");
-    
-    // Verificar 4.4: La copia recibida en Martu contiene el contenido editado
-    Email emailRecibido = martu.getBandejaEntrada().getEmails().get(0);
-    assertEquals(nuevoTitulo, emailRecibido.getSubject(), "El email recibido debe tener el título final editado.");
-    */
+    //copia recibida por rodridepaul contiene el contenido editado
+    Email emailRecibido = rodridepaul.getBandejaEntrada().getEmails().get(0);
+    assertNotSame(borrador, emailRecibido)
+    assertEquals("El viernes no, mejor el martes.", emailRecibido.getContent());
   }
 
 }
