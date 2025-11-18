@@ -175,6 +175,44 @@ public class BandejaTest {
 
   }
 
+  @Test
+  public void testFiltroNoLeidosYParaConCantantes() {
+    Contacto daddy = new Contacto("Daddy Yankee", "daddy@reggaeton.com");
+    Contacto karol = new Contacto("Karol G", "karol@reggaeton.com");
+    Contacto jbalvin = new Contacto("J Balvin", "balvin@colombia.com");
+    Contacto rosalia = new Contacto("Rosalía", "rosalia@motomami.com");
+
+    Email correo1 = new Email("Gasolina remix", "Daddy quiere reversionar el clásico con Karol", daddy, List.of(karol)) {
+        @Override public boolean isLeido() { return false; }
+    };
+
+    Email correo2 = new Email("Motomami tour", "Rosalía invita a Karol a abrir su show", rosalia, List.of(karol)) {
+        @Override public boolean isLeido() { return false; }
+    };
+
+    Email correo3 = new Email("Colaboración", "J Balvin propone tema con Karol y Rosalía", jbalvin, List.of(karol, rosalia)) {
+        @Override public boolean isLeido() { return true; }
+    };
+
+    Email correo4 = new Email("Fiesta privada", "Daddy organiza fiesta con reggaetón clásico", daddy, List.of(rosalia)) {
+        @Override public boolean isLeido() { return false; }
+    };
+
+    Email correo5 = new Email("Empanadas veganas", "Karol comparte receta sin carne", karol, List.of(jbalvin)) {
+        @Override public boolean isLeido() { return false; }
+    };
+
+    List<Email> todosLosCorreos = List.of(correo1, correo2, correo3, correo4, correo5);
+
+    List<Email> resultadoKarol = new Filtro().filtroNoLeidosYPara(todosLosCorreos, "karol@reggaeton.com");
+    assertEquals(2, resultadoKarol.size(), "Karol debería tener 2 correos no leídos (sin contar el de Balvin que ya leyó)");
+
+    List<Email> resultadoRosalia = new Filtro().filtroNoLeidosYPara(todosLosCorreos, "rosalia@motomami.com");
+    assertEquals(1, resultadoRosalia.size(), "Rosalía solo tiene 1 correo no leído, el de Daddy Yankee");
+
+    List<Email> resultadoBalvin = new Filtro().filtroNoLeidosYPara(todosLosCorreos, "balvin@colombia.com");
+    assertEquals(1, resultadoBalvin.size(), "Balvin tiene 1 correo no leído con receta vegana... ¿se animará a probarla?");
+}
 
 
 }

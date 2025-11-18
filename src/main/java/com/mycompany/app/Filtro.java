@@ -54,7 +54,7 @@ public class Filtro {
         .toList();
     }
 
-    //5. combina contenido + cantidad de destinatarios
+    //5. combina no leido + cantidad de destinatarios
     public List<Email> filtroNoLeidosYPara(List<Email> emails, String emailDestino) {
     String destinoLower = emailDestino.toLowerCase();
 
