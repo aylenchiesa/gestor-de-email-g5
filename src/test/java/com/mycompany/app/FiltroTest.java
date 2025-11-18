@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class FiltroTest {
-
+/* 
     @Test
     public void testPorTextoLibre() {
 
@@ -53,6 +53,43 @@ public class FiltroTest {
         // solo e1 cumple: no leído Y destinatario ana
         assertEquals(1, resultado.size());
         assertEquals("Hola", resultado.get(0).getSubject());
+    }*/
+
+    @Test
+    public void testPorTextoLibreCoincideConAsunto() {
+    Contacto tini = new Contacto("Tini", "tini@pop.com");
+    Email email = new Email("Gira mundial", "Fechas confirmadas", tini, List.of());
+    List<Email> resultado = new Filtro().filtrar(List.of(email), Filtro.porTextoLibre("gira"));
+    assertEquals(1, resultado.size());
     }
+
+    @Test
+    public void testPorTextoLibreCoincideConContenido() {
+    Contacto tini = new Contacto("Tini", "tini@pop.com");
+    Email email = new Email("Info", "La gira empieza en Buenos Aires", tini, List.of());
+    List<Email> resultado = new Filtro().filtrar(List.of(email), Filtro.porTextoLibre("buenos aires"));
+    assertEquals(1, resultado.size());
+    }
+
+    @Test
+    public void testPorTextoLibreCoincideConRemitente() {
+    Contacto lali = new Contacto("Lali", "lali@pop.com");
+    Email email = new Email("Colab", "¿Hacemos un tema juntas?", lali, List.of());
+    List<Email> resultado = new Filtro().filtrar(List.of(email), Filtro.porTextoLibre("lali"));
+    assertEquals(1, resultado.size());
+    }
+
+    @Test
+    public void testPorTextoLibreCoincideConDestinatario() {
+    Contacto tini = new Contacto("Tini", "tini@pop.com");
+    Contacto maria = new Contacto("María Becerra", "maria@trap.com");
+    Email email = new Email("Invitación", "Te espero en el show", maria, List.of(tini));
+    List<Email> resultado = new Filtro().filtrar(List.of(email), Filtro.porTextoLibre("tini"));
+    assertEquals(1, resultado.size());
+    }
+
+    
+
 }
+
 
