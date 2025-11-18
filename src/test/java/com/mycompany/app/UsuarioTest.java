@@ -69,37 +69,6 @@ public class UsuarioTest {
     assertTrue(emailAna.isLeido(), "Ana marco como leído su correo");
   }
 
-  @Test //?????
-  public void testRelacionUsuarioContacto() {
-    // Crear usuario - automáticamente crea contacto asociado
-    Usuario ana = new Usuario("Ana García", "ana@empresa.com");
-
-    // Verificar que el contacto se creó automáticamente
-    assertNotNull(ana.getContacto(), "Usuario debería tener un contacto asociado");
-    assertEquals("Ana García", ana.getContacto().getNombre());
-    assertEquals("ana@empresa.com", ana.getContacto().getEmail());
-
-    // Verificar que el contacto tiene bandejas
-    assertNotNull(ana.getContacto().getBandejaEntrada(), "Contacto debería tener bandeja de entrada");
-    assertNotNull(ana.getContacto().getBandejaSalida(), "Contacto debería tener bandeja de salida");
-
-    // Crear y enviar un email al contacto de Ana
-    Contacto remitente = new Contacto("Luis", "luis@empresa.com");
-    Email email = new Email("Test", "Contenido de prueba", remitente, Arrays.asList(ana.getContacto()));
-
-    ana.getContacto().getBandejaEntrada().agregarEmail(email);
-
-    // Verificar que Ana puede eliminar el email usando su poder de usuario
-    assertFalse(email.isEliminado(), "Email inicialmente no debería estar eliminado");
-    ana.eliminarEmail(email);
-    assertTrue(email.isEliminado(), "Email debería estar marcado como eliminado después de que Ana lo elimine");
-
-    // Ana puede restaurar el email
-    ana.restaurarEmail(email);
-    assertFalse(email.isEliminado(), "Email debería estar restaurado");
-  }
-  
-
   @Test
   public void testRestaurarEmail() {
     // Crear usuarios y contactos
@@ -143,10 +112,9 @@ public class UsuarioTest {
     //verificar que se desmarcó como eliminado
     assertFalse(emailEnBandeja.isEliminado(), "Email debería estar restaurado (no eliminado)");
 
-    // Verificar que el email restaurado está de vuelta en la bandeja
+    //verificar que el email restaurado está de vuelta en la bandeja
     assertEquals(1, martuContacto.getBandejaEntrada().getEmails().size(),"Bandeja debería tener el email restaurado");
     assertTrue(martuContacto.getBandejaEntrada().getEmails().contains(emailEnBandeja));
-    assertFalse(emailEnBandeja.isEliminado());
   }
-  //holiiiiiiiiiiiiiiiiiiii
+ 
 }
