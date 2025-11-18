@@ -22,11 +22,11 @@ public class GestorContactos {
     public void editarContacto(Contacto contacto, String nuevoNombre, String nuevoEmail) {
         contacto.setNombre(nuevoNombre);
         contacto.setEmail(nuevoEmail);
-}
-
-    public List<Contacto> getContactos() {
-        return contactos;
     }
+
+    /*public List<Contacto> getContactos() {
+        return contactos;
+    }*/
     
     public int size() {
         return contactos.size();
