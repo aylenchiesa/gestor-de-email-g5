@@ -18,7 +18,7 @@ public class Email implements IMarcador {
 
 
     //constructor sin destinatarios
-  public Email(String subject, String content, Contacto sender) {
+  /*public Email(String subject, String content, Contacto sender) {
       this.subject = subject;
       this.content = content;
       this.sender = sender;
@@ -28,7 +28,7 @@ public class Email implements IMarcador {
       this.borrador = false; // por defecto no es borrador
       this.eliminado = false; // por defecto no eliminado
       this.favorito = false; //por defecto no esta en fav
-  }
+  }*/
 
   //constructor con destinatarios
   public Email(String subject, String content, Contacto sender, List<Contacto> recipients) {
