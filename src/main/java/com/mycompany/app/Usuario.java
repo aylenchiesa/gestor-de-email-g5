@@ -27,13 +27,13 @@ public class Usuario {
       return email;
   }
 
-  public void setNombre(String nombre) {
+  /*public void setNombre(String nombre) {
       this.nombre = nombre;
   }
 
   public void setEmail(String email) {
     this.email = email;
-  }
+  }*/
 
   // Acceder al contacto asociado
   public Contacto getContacto() {
@@ -52,17 +52,12 @@ public class Usuario {
   // Usuario puede eliminar emails de su contacto asociado
   public void eliminarEmail(Email email) {
     email.eliminado = true; // Marcar como eliminado 
-      if (contacto != null) {
-          //usa el método de Bandeja para removerlo de la lista interna
-          contacto.getBandejaEntrada().removerEmail(email); 
-      }
+    contacto.getBandejaEntrada().removerEmail(email); 
   }
 
   public void restaurarEmail(Email email) {
     email.restaurar(); 
-    if (contacto != null && !contacto.getBandejaEntrada().getEmails().contains(email)) {
-        contacto.getBandejaEntrada().agregarEmail(email);
-    }
+    contacto.getBandejaEntrada().agregarEmail(email);
   }
     
 /*    public void eliminarEmail(Email email) {
@@ -78,10 +73,8 @@ public class Usuario {
   }
 
   public void editarBorrador(Email borrador, String newSubject, String newContent) {
-    if (borrador.isBorrador()) {
       borrador.setSubject(newSubject);
       borrador.setContent(newContent);
-    }
   }
   
   public void enviarBorrador(Email borrador, List<Contacto> recipients) {
