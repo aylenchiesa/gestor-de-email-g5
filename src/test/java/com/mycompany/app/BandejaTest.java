@@ -196,8 +196,6 @@ public class BandejaTest {
 
     List<Email> resultadoRosalia = new Filtro().filtroNoLeidosYPara(todosLosCorreos, "rosalia@motomami.com");
     assertEquals(1, resultadoRosalia.size(), "Rosalía solo tiene 1 correo no leído, el de Daddy Yankee");
-
-    
   }
 
 
