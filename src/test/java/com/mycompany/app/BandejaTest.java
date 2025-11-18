@@ -225,7 +225,7 @@ public class BandejaTest {
   }
 
   @Test
-public void testFiltrarPorDominioTrap() {
+  public void testFiltrarPorDominioTrap() {
     Contacto lali = new Contacto("Lali", "lali@pop.com");
     Contacto tini = new Contacto("Tini", "tini@trap.com");
     Contacto maria = new Contacto("María Becerra", "maria@trap.com");
@@ -244,6 +244,26 @@ public void testFiltrarPorDominioTrap() {
     assertTrue(resultado.contains(correo2), "El correo de Tini debería estar incluido");
     assertTrue(resultado.contains(correo3), "El correo de María debería estar incluido");
   }
+
+  @Test
+  public void testFiltrarPorPalabraEnAsunto() {
+  Contacto lali = new Contacto("Lali", "lali@pop.com");
+  Contacto tini = new Contacto("Tini", "tini@trap.com");
+  Contacto maria = new Contacto("María Becerra", "maria@trap.com");
+  Contacto nicki = new Contacto("Nicki", "nicki@reggaeton.com");
+
+  Email correo1 = new Email("Nuevo tema", "Lali propone colaboración", lali, List.of(tini));
+  Email correo2 = new Email("Gira importante", "Fechas confirmadas", tini, List.of(lali));
+  Email correo3 = new Email("Remix explosivo", "María quiere sumar a Nicki", maria, List.of(nicki));
+  Email correo4 = new Email("Fiesta", "Nicki invita a todas", nicki, List.of(lali, tini));
+
+  List<Email> todos = List.of(correo1, correo2, correo3, correo4);
+
+  List<Email> resultado = new Filtro().filtrar(todos, Filtro.asuntoContiene("importante"));
+
+  assertEquals(1, resultado.size(), "Debería encontrar 1 correo con 'importante' en el asunto");
+  assertTrue(resultado.contains(correo2), "El correo con asunto 'Gira importante' debería estar incluido");
+}
 
 }
 
