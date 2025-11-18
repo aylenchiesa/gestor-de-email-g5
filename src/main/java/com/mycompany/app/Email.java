@@ -88,11 +88,11 @@ public class Email implements IMarcador {
     return eliminado;
   }
 
-  public Email copiar() {
+  /*public Email copiar() {
     Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.getRecipients());
     //copia.getRecipients().addAll(this.getRecipients());
     return copia;
-  }
+  }*/
 
   //constructor para borrador 
   public Email(String subject, String content, Contacto sender, boolean isBorrador) {
@@ -100,19 +100,18 @@ public class Email implements IMarcador {
     this.borrador = isBorrador;
   }
   
-  @Override
-    public Email copiar() {
-        // Usa el constructor completo para replicar todos los campos
-        Email copia = new new Email(this.getSubject(), this.getContent(), this.getSender(), this.getRecipients());
-        
-        // Transferir estados
-        copia.leido = this.leido;
-        copia.important = this.important;
-        copia.borrador = this.borrador;
-        copia.eliminado = this.eliminado;
-        
-        return copia;
-    }
+  public Email copiar() {
+      // Usa el constructor completo para replicar todos los campos
+      Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.getRecipients());
+      
+      //transferir estados
+      copia.leido = this.leido;
+      copia.important = this.important;
+      copia.borrador = this.borrador;
+      copia.eliminado = this.eliminado;
+      
+      return copia;
+  }
 
   //setters para editar borradores
   public void setSubject(String subject) {
