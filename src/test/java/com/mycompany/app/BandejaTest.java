@@ -148,6 +148,7 @@ public class BandejaTest {
   @Test
   public void testFiltroDominioYTextoConCantantes() {
     // crear contactos 
+    SendMail gestor = new SendMail();
     Contacto shakira = new Contacto("Shakira", "shakira@pop.com");
     Contacto badbunny = new Contacto("Bad Bunny", "badbunny@trap.com");
     Contacto taylor = new Contacto("Taylor Swift", "taylor@pop.com");
@@ -158,21 +159,28 @@ public class BandejaTest {
     Email correo3 = new Email("Gira mundial", "Taylor anuncia tour con 87 fechas y 3 cambios de vestuario por show", taylor, List.of(shakira));
     Email correo4 = new Email("Nuevo hit", "Bad Bunny lanza 'ojitos lindos'", badbunny, List.of(taylor));
     Email correo5 = new Email("Receta de empanadas", "Shakira comparte su secreto para la masa perfecta", shakira, List.of(badbunny));
+    
+    gestor.enviar(correo1, Arrays.asList(taylor));
+    gestor.enviar(correo2, Arrays.asList(shakira));
+    gestor.enviar(correo3, Arrays.asList(shakira));
+    gestor.enviar(correo4, Arrays.asList(taylor));
+    gestor.enviar(correo5, Arrays.asList(badbunny));
 
-    List<Email> todosLosCorreos = List.of(correo1, correo2, correo3, correo4, correo5);
+    //lista de la bandeja de cada destinatario
+    List<Email> bandejaDeShakira = shakira.getBandejaEntrada().getEmails();
+    List<Email> bandejaDeBadbunny = badbunny.getBandejaEntrada().getEmails();
 
-    // filtrar por dominio "pop.com" y texto "hit"
-    List<Email> resultado = new Filtro().filtroDominioYTexto(todosLosCorreos, "pop.com", "hit");
+    // filtrar por dominio y texto
+    List<Email> resultado = new Filtro().filtroDominioYTexto(bandejaDeShakira, "pop.com", "gira");
 
     // verficarrrr
-    assertEquals(1, resultado.size(), "Debe encontrar solo 1 correo de pop.com con 'hit'");
-    assertEquals("Nuevo hit", resultado.get(0).getSubject());
+    assertEquals(1, resultado.size(), "Debe encontrar solo 1 correo de pop.com con 'gira'");
+    assertEquals("Gira mundial", resultado.get(0).getSubject());
 
     // otro caso nmsss con "trap.com" y texto "conejo"
-    List<Email> resultado2 = new Filtro().filtroDominioYTexto(todosLosCorreos, "trap.com", "ojitos");
-    assertEquals(1, resultado2.size(), "Debe encontrar 1 correo de trap.com con 'ojitos'");
-    assertEquals("Nuevo hit", resultado2.get(0).getSubject());
-
+    List<Email> resultado2 = new Filtro().filtroDominioYTexto(bandejaDeBadbunny, "pop.com", "empanadas");
+    assertEquals(1, resultado2.size(), "Debe encontrar 1 correo de trap.com con 'empanadas'");
+    assertEquals("Receta de empanadas", resultado2.get(0).getSubject());
   }
 
   @Test
@@ -181,13 +189,14 @@ public class BandejaTest {
     Contacto karol = new Contacto("Karol G", "karol@reggaeton.com");
     Contacto jbalvin = new Contacto("J Balvin", "balvin@colombia.com");
     Contacto rosalia = new Contacto("Rosalía", "rosalia@motomami.com");
+    Usuario karolUser = new Usuario("Karol User", "karol@reggaeton.com", karol);
 
     Email correo1 = new Email("Gasolina remix", "Daddy quiere reversionar el clásico con Karol", daddy, List.of(karol));
     Email correo2 = new Email("Motomami tour", "Rosalía invita a Karol a abrir su show", rosalia, List.of(karol)); 
     Email correo3 = new Email("Colaboración", "J Balvin propone tema con Karol y Rosalía", jbalvin, List.of(karol, rosalia)); 
     Email correo4 = new Email("Fiesta privada", "Daddy organiza fiesta con reggaetón clásico", daddy, List.of(rosalia));
     
-    correo3.marcarComoLeido();
+    karolUser.marcarComoLeido(correo3);
 
     List<Email> todosLosCorreos = List.of(correo1, correo2, correo3, correo4);
 

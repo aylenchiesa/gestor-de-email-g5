@@ -49,7 +49,7 @@ public class Usuario {
 
   public void marcarComoFavorito(Email email) {
     email.marcarComoFavorito();
-    }
+  }
 
   // Usuario puede eliminar emails de su contacto asociado
   public void eliminarEmail(Email email) {
