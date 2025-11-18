@@ -30,7 +30,7 @@ public class EmailTest {
     assertEquals(remitente, bandejaEntrada.getEmails().get(0).getSender());
   }
 
-  //NO SE TOCAAAA ESTE TEST PERFE
+  //NO SE TOCAAAA ESTE TEST
   @Test
   public void testLeerContenido() {
     Contacto remitente = new Contacto("Carlos", "carlos@empresa.com");
