@@ -102,7 +102,7 @@ public class EmailTest {
     assertEquals("El viernes no, mejor el martes.", emailRecibido.getContent());
   }
 
-@Test
+ @Test
 public void testMarcarComoLeidoYNoLeidoConCCO() {
     Contacto aylen = new Contacto("Aylen", "aylen@empresa.com");
     Contacto piccolini = new Contacto("Pato Pico", "pato@empresa.com");
@@ -116,15 +116,13 @@ public void testMarcarComoLeidoYNoLeidoConCCO() {
                             "Mañana a las 10am", 
                             aylen, 
                             Arrays.asList(fercho, piccolini));
-    
-    //destinatario CCO 
-    email.getCcRecipients().add(jaqui); 
+                            //destinatario CCO 
+                            email.getCcRecipients().add(jaqui); 
     
     SendMail gestor = new SendMail();
-    // NOTA: La lista de recipients SÓLO debe incluir TO/PARA. El CCO lo maneja el email.
+    // la lista de recipients SÓLO debe incluir TO/PARA. El CCO lo maneja el email.
     gestor.enviar(email, java.util.Arrays.asList(fercho, piccolini));
     
-    // 1. VERIFICACIONES DE LLEGADA (Igual que antes)
     assertEquals(1, piccolini.getBandejaEntrada().getEmails().size(), "Pato recibió el correo TO.");
     assertEquals(1, fercho.getBandejaEntrada().getEmails().size(), "Fercho recibió el correo TO.");
     assertEquals(1, jaqui.getBandejaEntrada().getEmails().size(), "Jaqui recibió el correo CCO."); 
@@ -139,6 +137,7 @@ public void testMarcarComoLeidoYNoLeidoConCCO() {
     assertTrue(emailPato.getCcRecipients().isEmpty(), "La lista CCO de Pato debe estar vacía.");
     assertTrue(emailJaqui.getCcRecipients().isEmpty(), "La lista CCO de Jaqui debe estar vacía.");
 }
+
 }
 
 
