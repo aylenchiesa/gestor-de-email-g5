@@ -16,8 +16,6 @@ public class EmailTest {
     Contacto remitente = new Contacto("Carlos", "carlos@empresa.com");
     Contacto meli = new Contacto("Meli", "meli@empresa.com");
     Contacto marto = new Contacto("Luis", "luis@empresa.com");
-
-    //Usuario meliUser = new Usuario("Meli", "meli@empresa.com", meli);
     Usuario martoUser = new Usuario("Luis", "luis@empresa.com", marto);
 
     //enviar el correo

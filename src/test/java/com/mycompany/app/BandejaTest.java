@@ -202,6 +202,8 @@ public class BandejaTest {
   public void testMarcarComoFavorito() {
     Contacto lali = new Contacto("Lali", "lali@pop.com");
     Contacto tini = new Contacto("Tini", "tini@pop.com");
+    Usuario laliUser = new Usuario("Lali User", "lali@pop.com", lali);
+    SendMail gestor = new SendMail();
 
     Bandeja bandejalali = lali.getBandejaEntrada();
 
@@ -209,12 +211,15 @@ public class BandejaTest {
     Email correo2 = new Email("Fiesta", "Invitación a fiesta", tini, List.of(lali));
     Email correo3 = new Email("Gira", "Fechas confirmadas para el tour Futttura", tini, List.of(lali));
 
-    correo1.marcarComoFavorito();
-    correo3.marcarComoFavorito();
-
-    bandejalali.agregarEmail(correo1);
-    bandejalali.agregarEmail(correo2);
-    bandejalali.agregarEmail(correo3);
+    gestor.enviar(correo1, Arrays.asList(lali));
+    gestor.enviar(correo2, Arrays.asList(lali));
+    gestor.enviar(correo3, Arrays.asList(lali));
+    //correos clonados en bandejas de cada contacto
+    Email emailLali = lali.getBandejaEntrada().getEmails().get(0);
+    Email email3Lali = lali.getBandejaEntrada().getEmails().get(2);
+    
+    laliUser.marcarComoFavorito(emailLali);
+    laliUser.marcarComoFavorito(email3Lali);
 
     List<Email> favoritos = bandejalali.getFavoritos();
     assertEquals(2, favoritos.size(), "Lali debería tener 2 correos favoritos");

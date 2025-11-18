@@ -62,8 +62,10 @@ public class Bandeja {
     }
 
     public List<Email> buscarFavoritos(Predicate<Email> filtro) {
-        return getFavoritos().stream()
-                             .filter(filtro)
-                             .collect(Collectors.toList());
+      return getFavoritos().stream()
+          .filter(filtro)
+          .collect(Collectors.toList());
     }
+    
+    
 }

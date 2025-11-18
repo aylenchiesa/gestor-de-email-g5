@@ -47,9 +47,16 @@ public class Usuario {
     email.marcarComoNoLeido();
   }
 
-  public void marcarComoFavorito(Email email) {
-      email.marcarComoLeido();
-  }
+  public void marcarComoFavorito(Email emailAEditar) {
+    if (this.contacto == null) return; 
+    List<Email> bandeja = this.contacto.getBandejaEntrada().getEmails();
+    for (Email emailEnBandeja : bandeja) {
+        if (emailEnBandeja == emailAEditar) {
+            emailEnBandeja.marcarComoFavorito();
+            return;
+        }
+    }
+}
 
   
   // Usuario puede eliminar emails de su contacto asociado
@@ -81,15 +88,17 @@ public class Usuario {
   }
   
   public void enviarBorrador(Email borrador, List<Contacto> recipients) {
-    borrador.marcarComoEnviado(); 
+    borrador.marcarComoEnviado();
     //volar el borrador 
     this.contacto.getBandejaBorradores().removerEmail(borrador);
     //destinatarios
     borrador.getRecipients().addAll(recipients);
-    
+
     //enviar
     SendMail gestor = new SendMail();
     gestor.enviar(borrador, recipients);
-}
+  }
+
+  
 
 }
