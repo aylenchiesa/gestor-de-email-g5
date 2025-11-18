@@ -111,19 +111,61 @@ public class EmailTest {
     //ahora enviamos el borrador
     dualipaUser.enviarBorrador(borrador, Arrays.asList(rodridepaul));
     assertFalse(borrador.isBorrador());
-    
+
     //borradores vaciooo
     assertEquals(0, dualipa.getBandejaBorradores().getEmails().size());
-    
+
     //email llegó al destinatario (rodridepaul)
     assertEquals(1, rodridepaul.getBandejaEntrada().getEmails().size());
-    
+
     //copia recibida por rodridepaul contiene el contenido editado
     Email emailRecibido = rodridepaul.getBandejaEntrada().getEmails().get(0);
     assertNotSame(borrador, emailRecibido);
     assertEquals("El viernes no, mejor el martes.", emailRecibido.getContent());
   }
 
+@Test
+public void testMarcarComoLeidoYNoLeidoConCCO() {
+    Contacto aylen = new Contacto("Aylen", "aylen@empresa.com");
+    Contacto piccolini = new Contacto("Pato Pico", "pato@empresa.com");
+    Contacto fercho = new Contacto("Fercho", "fercho@empresa.com");
+    Contacto jaqui = new Contacto("Jaqui CCO", "jaqui@empresa.com"); //CC
+    
+    Usuario piccoliniUser = new Usuario("Pato Pico", "pato@empresa.com", piccolini);
+    
+    //enviar el correo
+    Email email = new Email("Reunión importante",
+                            "Mañana a las 10am", 
+                            aylen, 
+                            Arrays.asList(fercho, piccolini));
+    
+    //destinatario CCO 
+    email.getCcRecipients().add(jaqui); 
+    
+    SendMail gestor = new SendMail();
+    // NOTA: La lista de recipients SÓLO debe incluir TO/PARA. El CCO lo maneja el email.
+    gestor.enviar(email, java.util.Arrays.asList(fercho, piccolini));
+    
+    // 1. VERIFICACIONES DE LLEGADA (Igual que antes)
+    assertEquals(1, piccolini.getBandejaEntrada().getEmails().size(), "Pato recibió el correo TO.");
+    assertEquals(1, fercho.getBandejaEntrada().getEmails().size(), "Fercho recibió el correo TO.");
+    assertEquals(1, jaqui.getBandejaEntrada().getEmails().size(), "Jaqui recibió el correo CCO."); 
+    
+    Email emailPato = piccolini.getBandejaEntrada().getEmails().get(0);
+    Email emailJaqui = jaqui.getBandejaEntrada().getEmails().get(0); 
+    
+    //jaqui NO debe ver a piccolini in the list of recipients she received.
+    assertFalse(emailPato.getRecipients().contains(jaqui), 
+        "ERROR CCO: Jaqui (TO) NO debe ver a Piccolini (CCO) en la lista de destinatarios.");
+        
+    //jaqui (CCO) no debe ver a nadie en su lista de destinatarios
+    assertTrue(emailJaqui.getRecipients().isEmpty(), 
+        "ERROR CCO: Jaqui (CCO) no debería ver destinatarios TO/PARA en la copia recibida."); 
+        
+    // Ambos no deben tener la lista CCO adjunta (pues fue limpiada por SendMail)
+    assertTrue(emailPato.getCcRecipients().isEmpty(), "La lista CCO de Pato debe estar vacía.");
+    assertTrue(emailJaqui.getCcRecipients().isEmpty(), "La lista CCO de Jaqui debe estar vacía.");
+}
 }
 
 
