@@ -5,94 +5,126 @@ import java.util.List;
 
 public class Email implements IMarcador {
 
-    private String subject;
-    private String content;
-    private Contacto sender;
-    private List<Contacto> recipients;
+  private String subject;
+  private String content;
+  private Contacto sender;
+  private List<Contacto> recipients;
 
-    private boolean leido; //por defecto falso
-    private boolean important;
-    private boolean borrador;
-    public boolean eliminado;
+  private boolean leido; //por defecto falso
+  private boolean important;
+  private boolean borrador;
+  public boolean eliminado;
 
-    //constructor básico sin destinatarios
-    /*public Email(String subject, String content, Contacto sender) {
-        this.subject = subject;
-        this.content = content;
-        this.sender = sender;
-        this.recipients = new ArrayList<>();
-        this.leido = false; // por defecto no leido obvio
-        this.important = false; // por defecto no es importante
-        this.borrador = false; // por defecto no es borrador
-        this.eliminado = false; // por defecto no eliminado
-    }*/
+    //constructor sin destinatarios
+  public Email(String subject, String content, Contacto sender) {
+      this.subject = subject;
+      this.content = content;
+      this.sender = sender;
+      this.recipients = new ArrayList<>();
+      this.leido = false; // por defecto no leido obvio
+      this.important = false; // por defecto no es importante
+      this.borrador = false; // por defecto no es borrador
+      this.eliminado = false; // por defecto no eliminado
+  }
 
-    //constructor con destinatarios
-    public Email(String subject, String content, Contacto sender, List<Contacto> recipients) {
-        this.subject = subject;
-        this.content = content;
-        this.sender = sender;
-        this.recipients = new ArrayList<>(recipients); // Crear copia para evitar modificaciones externas
-        this.leido = false;
-        this.important = false;
-        this.borrador = false;
-        this.eliminado = false;
-    }
+  //constructor con destinatarios
+  public Email(String subject, String content, Contacto sender, List<Contacto> recipients) {
+      this.subject = subject;
+      this.content = content;
+      this.sender = sender;
+      this.recipients = new ArrayList<>(recipients); // Crear copia para evitar modificaciones externas
+      this.leido = false;
+      this.important = false;
+      this.borrador = false;
+      this.eliminado = false;
+  }
 
-    //uso básico
-    public void restaurar() {
-        this.eliminado = false;
-    }
+  //uso básico
+  public void restaurar() {
+      this.eliminado = false;
+  }
 
-    public String getSubject() {
-      return subject;
-    }
+  public String getSubject() {
+    return subject;
+  }
 
-    public String getContent() {
-      this.marcarComoLeido(); //se marca automáticamente como leído al abrir el contenido
-      return content;
-    }
+  public String getContent() {
+    this.marcarComoLeido(); //se marca automáticamente como leído al abrir el contenido
+    return content;
+  }
 
-    public Contacto getSender() {
-      return sender;
-    }
+  public Contacto getSender() {
+    return sender;
+  }
 
-    public List<Contacto> getRecipients() {
-        return recipients;
-    }
+  public List<Contacto> getRecipients() {
+      return recipients;
+  }
 
-    @Override
-    public void marcarComoLeido() {
-        this.leido = true;
-    }
+  @Override
+  public void marcarComoLeido() {
+      this.leido = true;
+  }
 
-    @Override
-    public void marcarComoNoLeido() {
-        this.leido = false;
-    }
+  @Override
+  public void marcarComoNoLeido() {
+      this.leido = false;
+  }
 
-    @Override
-    public boolean isLeido() {
-      return leido;
-    }
-    
-    public boolean isBorrador() {
-      return borrador;
-    }
+  @Override
+  public boolean isLeido() {
+    return leido;
+  }
 
-    public boolean isImportant() {
-      return important;
-    }
+  public boolean isBorrador() {
+    return borrador;
+  }
 
-    public boolean isEliminado() {
-      return eliminado;
-    }
+  public boolean isImportant() {
+    return important;
+  }
 
+  public boolean isEliminado() {
+    return eliminado;
+  }
+
+  public Email copiar() {
+    Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.getRecipients());
+    //copia.getRecipients().addAll(this.getRecipients());
+    return copia;
+  }
+
+  //constructor para borrador 
+  public Email(String subject, String content, Contacto sender, boolean isBorrador) {
+    this(subject, content, sender);
+    this.borrador = isBorrador;
+  }
+  
+  @Override
     public Email copiar() {
-      Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.getRecipients());
-      //copia.getRecipients().addAll(this.getRecipients());
-      
-      return copia;
-
+        // Usa el constructor completo para replicar todos los campos
+        Email copia = new new Email(this.getSubject(), this.getContent(), this.getSender(), this.getRecipients());
+        
+        // Transferir estados
+        copia.leido = this.leido;
+        copia.important = this.important;
+        copia.borrador = this.borrador;
+        copia.eliminado = this.eliminado;
+        
+        return copia;
     }
+
+  //setters para editar borradores
+  public void setSubject(String subject) {
+      this.subject = subject;
+  }
+
+  public void setContent(String content) {
+      this.content = content;
+  }
+
+  // cambiar el estado de borrador a enviado
+  public void marcarComoEnviado() {
+      this.borrador = false;
+  }
 }
