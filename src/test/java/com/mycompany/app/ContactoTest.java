@@ -35,16 +35,21 @@ public class ContactoTest {
     
     @Test
     void testEditarNombreContacto() {
-        String nombreInicial = "Elon Musk";
-        String nombreNuevo = "Elon";
+        GestorContactos gestor = new GestorContactos();
+        Contacto steve = new Contacto("Steve Jobs", "steve@email.com");
+
+        assertEquals("Steve Jobs", steve.getNombre());
+        assertEquals("steve@email.com", steve.getEmail());
+
+        String nuevoNombre = "Steve Wozniak";
+        String nuevoEmail = "swozniak@nuevo.com";
         
-        contacto.setNombre(nombreInicial);
-        assertEquals(nombreInicial, contacto.getNombre());
-        
-        //editar nombre
-        contacto.setNombre(nombreNuevo);
-        assertEquals(nombreNuevo, contacto.getNombre());
-    }
+        gestor.editarContacto(steve, nuevoNombre, nuevoEmail);
+
+        // VERIFICACIÓN: Los campos fueron actualizados
+        assertEquals(nuevoNombre, steve.getNombre(), "El nombre debe ser actualizado directamente.");
+        assertEquals(nuevoEmail, steve.getEmail(), "El email debe ser actualizado directamente.");
+        }
     
 
 //editar el email de un contacto
