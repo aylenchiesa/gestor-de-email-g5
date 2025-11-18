@@ -14,8 +14,9 @@ public class GestorContactos {
         contactos.add(contacto);
     }
     
-    public boolean eliminarContacto(String email) {
-      return contactos.removeIf(contacto -> contacto.getEmail().equals(email));
+    public void eliminarContacto(Contacto contactoAEliminar) {
+      contactoAEliminar.eliminarContacto();
+      this.contactos.remove(contactoAEliminar); 
     }
     
     public boolean editarContacto(String email, String nuevoNombre, String nuevoEmail) {

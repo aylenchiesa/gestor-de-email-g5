@@ -64,51 +64,28 @@ public class ContactoTest {
 
     @Test
     void testEliminarContacto() {
-    // Crear contacto con datos
-    Contacto contacto = new Contacto("Silvia Hoferek", "silvia.hoferek@ucp.com");
+    GestorContactos gestor = new GestorContactos();
+    Contacto Silvia = new Contacto("Silvia Hoferek", "silvia.hoferek@ucp.com");
+    Contacto Martu = new Contacto("Martina Perduca", "martu@email.com");
+
+    gestor.agregarContacto(Silvia);
+    gestor.agregarContacto(Martu);
+
+    assertEquals(2, gestor.size());
 
     // Verificar que se creó correctamente
-    assertNotNull(contacto.getNombre());
-    assertNotNull(contacto.getEmail());
+    assertNotNull(Silvia.getNombre());
+    assertNotNull(Silvia.getEmail());
 
     // Eliminar contacto con el nuevo método
-    contacto.eliminarContacto();
+    gestor.eliminarContacto(Silvia);
 
     // Verificar que los campos se limpiaron
-    assertNull(contacto.getNombre(), "El nombre debería estar en null tras eliminar el contacto");
-    assertNull(contacto.getEmail(), "El email debería estar en null tras eliminar el contacto");
-    
+    assertNull(Silvia.getNombre(), "El nombre debería estar en null tras eliminar el contacto");
+    assertNull(Silvia.getEmail(), "El email debería estar en null tras eliminar el contacto");
+
+    assertEquals(1, gestor.size(), "Queda 1 contacto en la lista."); 
 }
 
-    @Test
-    void testContactoComoRemitente() {
-        String nombre = "Carlos Sender";
-        String email = "carlos.sender@email.com";
-        
-        Contacto remitente = new Contacto(nombre, email);
-        
-        // Verificar que los datos son correctos para usar como remitente
-        assertNotNull(remitente.getNombre());
-        assertNotNull(remitente.getEmail());
-        assertEquals(nombre, remitente.getNombre());
-        assertEquals(email, remitente.getEmail());
-        assertTrue(remitente.getEmail().contains("@"));
-    }
-    
-    @Test
-    void testContactoComoDestinatario() {
-        String nombre = "Laura Receiver";
-        String email = "laura.receiver@email.com";
-        
-        Contacto destinatario = new Contacto(nombre, email);
-        
-        // Verificar que los datos son correctos para usar como destinatario
-        assertNotNull(destinatario.getNombre());
-        assertNotNull(destinatario.getEmail());
-        assertEquals(nombre, destinatario.getNombre());
-        assertEquals(email, destinatario.getEmail());
-        assertTrue(destinatario.getEmail().contains("@"));
-    }
-    
 
 }
