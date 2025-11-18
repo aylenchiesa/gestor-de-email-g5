@@ -22,6 +22,7 @@ public class Contacto {
         this.email = email;
         this.bandejaEntrada = new Bandeja();
         this.bandejaSalida = new Bandeja();
+        this.bandejaBorradores = new Bandeja();
     }
 
     public String getNombre() {

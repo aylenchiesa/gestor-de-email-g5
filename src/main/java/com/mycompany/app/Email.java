@@ -29,16 +29,27 @@ public class Email implements IMarcador {
 
   //constructor con destinatarios
   public Email(String subject, String content, Contacto sender, List<Contacto> recipients) {
-      this.subject = subject;
-      this.content = content;
-      this.sender = sender;
-      this.recipients = new ArrayList<>(recipients); // Crear copia para evitar modificaciones externas
-      this.leido = false;
-      this.important = false;
-      this.borrador = false;
-      this.eliminado = false;
+    this.subject = subject;
+    this.content = content;
+    this.sender = sender;
+    this.recipients = new ArrayList<>(recipients); // Crear copia para evitar modificaciones externas
+    this.leido = false;
+    this.important = false;
+    this.borrador = false;
+    this.eliminado = false;
   }
-
+  
+  //constructor para borrador 
+    public Email(String subject, String content, Contacto sender, boolean isBorrador) {
+    this.subject = subject;
+    this.content = content;
+    this.sender = sender;
+    this.recipients = new ArrayList<>();
+    this.leido = false;
+    this.important = false;
+    this.borrador = isBorrador;
+    this.eliminado = false;
+}
   //uso básico
   public void restaurar() {
       this.eliminado = false;
@@ -94,21 +105,14 @@ public class Email implements IMarcador {
     return copia;
   }*/
 
-  //constructor para borrador 
-  public Email(String subject, String content, Contacto sender, boolean isBorrador) {
-    this(subject, content, sender);
-    this.borrador = isBorrador;
-  }
-  
   public Email copiar() {
-      // Usa el constructor completo para replicar todos los campos
-      Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.getRecipients());
+      Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.borrador);
       
       //transferir estados
-      copia.leido = this.leido;
+      /*copia.leido = this.leido;
       copia.important = this.important;
       copia.borrador = this.borrador;
-      copia.eliminado = this.eliminado;
+      copia.eliminado = this.eliminado;*/
       
       return copia;
   }
