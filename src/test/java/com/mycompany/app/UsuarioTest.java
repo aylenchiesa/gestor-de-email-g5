@@ -34,6 +34,8 @@ public class UsuarioTest {
     
     SendMail gestor = new SendMail();
     gestor.enviar(email, java.util.Arrays.asList(anaContacto, luisContacto));
+
+    assertEquals("Sent", gestor.getStatus());
     
     //verif bandeja de entrada de cada uno
     assertEquals(1, anaContacto.getBandejaEntrada().getEmails().size());
