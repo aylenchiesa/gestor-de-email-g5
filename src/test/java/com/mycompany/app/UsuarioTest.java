@@ -26,7 +26,7 @@ public class UsuarioTest {
     Contacto luisContacto = new Contacto("Luis", "luis@empresa.com");
     
     Usuario anaUsuario = new Usuario("Ana", "ana@empresa.com", anaContacto);
-    Usuario luisUsuario = new Usuario("Luis", "luis@empresa.com");
+    Usuario luisUsuario = new Usuario("Luis", "luis@empresa.com", luisContacto);
     
     //enviar el correo
     Email email = new Email("Reunión importante",
@@ -54,8 +54,8 @@ public class UsuarioTest {
     assertFalse(emailLuis.isLeido(), "Email de Luis debería seguir sin leer");
     
     //luis abre su correo
-    luisContacto.getBandejaEntrada().getEmails().get(0).getContent();
-    assertTrue(luisContacto.getBandejaEntrada().getEmails().get(0).isLeido());
+    luisUsuario.getContacto().getBandejaEntrada().getEmails().get(0).getContent();
+    assertTrue(luisUsuario.getContacto().getBandejaEntrada().getEmails().get(0).isLeido());
     
     // ana marca su correo como no leido
     anaUsuario.marcarComoNoLeido(emailAna);

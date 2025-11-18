@@ -100,7 +100,7 @@ public class Email implements IMarcador {
   }
 
   public Email copiar() {
-      Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.borrador);
+      Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.getRecipients());
       
       //transferir estados
       /*copia.leido = this.leido;
