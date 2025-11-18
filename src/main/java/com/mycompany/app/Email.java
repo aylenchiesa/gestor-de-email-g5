@@ -99,12 +99,6 @@ public class Email implements IMarcador {
     return eliminado;
   }
 
-  /*public Email copiar() {
-    Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.getRecipients());
-    //copia.getRecipients().addAll(this.getRecipients());
-    return copia;
-  }*/
-
   public Email copiar() {
       Email copia = new Email(this.getSubject(), this.getContent(), this.getSender(), this.borrador);
       

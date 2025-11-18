@@ -156,7 +156,7 @@ public class EmailTest {
     
     //copia recibida por rodridepaul contiene el contenido editado
     Email emailRecibido = rodridepaul.getBandejaEntrada().getEmails().get(0);
-    assertNotSame(borrador, emailRecibido)
+    assertNotSame(borrador, emailRecibido);
     assertEquals("El viernes no, mejor el martes.", emailRecibido.getContent());
   }
 
