@@ -48,4 +48,17 @@ public class Filtro {
             .toList();
     }
 
+    
+    //busqueda de email
+    public static Predicate<Email> porTexto(String texto) {
+        String query = texto.toLowerCase();
+
+        return email ->
+            (email.getSubject() != null && email.getSubject().toLowerCase().contains(query)) ||
+            (email.getContent() != null && email.getContent().toLowerCase().contains(query)) ||
+            (email.getSender() != null && email.getSender().toString().toLowerCase().contains(query)) ||
+            (email.getRecipients() != null &&
+                 email.getRecipients().toString().toLowerCase().contains(query));
+    }
 }
+
