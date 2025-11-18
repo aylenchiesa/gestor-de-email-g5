@@ -30,13 +30,6 @@ public class Filtro {
             .toList();
     }
     
-    //filtra emails por dominio del remitente
-    public List<Email> porDominio(List<Email> emails, String dominio) {
-        return emails.stream()
-            .filter(email -> email.getSender().getEmail().endsWith("@" + dominio))
-            .toList();
-    }
-
     //método genérico para usar cualquier predicado
     public List<Email> filtrar(List<Email> emails, Predicate<Email> condicion) {
         return emails.stream()
