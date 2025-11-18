@@ -6,7 +6,6 @@ public class Usuario {
   private String nombre;
   private String email;
   private Contacto contacto; // Relación Usuario -> Contacto
-  private boolean leido;
 
   public Usuario(String nombre, String email, Contacto contacto) {
       this.nombre = nombre;
@@ -47,8 +46,12 @@ public class Usuario {
   public void marcarComoNoLeido(Email email) {
     email.marcarComoNoLeido();
   }
-  
 
+  public void marcarComoFavorito(Email email) {
+      email.marcarComoLeido();
+  }
+
+  
   // Usuario puede eliminar emails de su contacto asociado
   public void eliminarEmail(Email email) {
     email.eliminado = true; // Marcar como eliminado 
