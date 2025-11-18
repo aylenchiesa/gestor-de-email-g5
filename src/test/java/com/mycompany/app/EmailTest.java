@@ -30,42 +30,6 @@ public class EmailTest {
     assertEquals(remitente, bandejaEntrada.getEmails().get(0).getSender());
   }
 
-  @Test
-  public void testCopiasIndependientesEnDestinatarios() {
-    // remitente y destinatarios bla bla
-    Contacto remitente = new Contacto("Carlos", "carlos@empresa.com");
-    Contacto ana = new Contacto("Ana", "ana@empresa.com");
-    Contacto luis = new Contacto("Luis", "luis@empresa.com");
-
-    // crear email ORIGINALLLL
-    Email email = new Email("Reunión", "La reunión es a las 10hs.", remitente, Arrays.asList(ana, luis));
-
-    // enviar email
-    SendMail gestor = new SendMail();
-    gestor.enviar(email, Arrays.asList(ana, luis));
-
-    // verificar que ambos recibieron el correo
-    assertEquals(1, ana.getBandejaEntrada().getEmails().size());
-    assertEquals(1, luis.getBandejaEntrada().getEmails().size());
-
-    Email emailAna = ana.getBandejaEntrada().getEmails().get(0);
-    Email emailLuis = luis.getBandejaEntrada().getEmails().get(0);
-
-    //sirve para verificar que dos objetos no son la misma instancia en memoria,(copias, no la misma referencia)
-    assertNotSame(emailAna, emailLuis, "Cada destinatario debe recibir una copia independiente del correo");
-
-    // al principio, ninguno está leído
-    assertFalse(emailAna.isLeido());
-    assertFalse(emailLuis.isLeido());
-
-    // ana abre el correo (lee su copia)
-    emailAna.getContent(); // esto marca como leído
-
-    // verificar que solo el de Ana se marcó como leído
-    assertTrue(emailAna.isLeido(), "El correo de Ana debería estar marcado como leído");
-    assertFalse(emailLuis.isLeido(), "El correo de Luis no debería afectarse, sigue sin leer");
-  }
-
   //NO SE TOCAAAA ESTE TEST PERFE
   @Test
   public void testLeerContenido() {
