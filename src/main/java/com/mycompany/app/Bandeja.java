@@ -54,4 +54,16 @@ public class Bandeja {
     emails.removeIf(e -> e == email);
   }
 
+  // bandeja especial de favoritos
+    public List<Email> getFavoritos() {
+        return emails.stream()
+                     .filter(Email::esFavorito)
+                     .collect(Collectors.toList());
+    }
+
+    public List<Email> buscarFavoritos(Predicate<Email> filtro) {
+        return getFavoritos().stream()
+                             .filter(filtro)
+                             .collect(Collectors.toList());
+    }
 }
