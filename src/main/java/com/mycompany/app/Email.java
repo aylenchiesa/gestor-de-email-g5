@@ -17,20 +17,6 @@ public class Email implements IMarcador {
   public boolean eliminado;
   private boolean favorito;
 
-
-    //constructor sin destinatarios
-  /*public Email(String subject, String content, Contacto sender) {
-      this.subject = subject;
-      this.content = content;
-      this.sender = sender;
-      this.recipients = new ArrayList<>();
-      this.leido = false; // por defecto no leido obvio
-      this.important = false; // por defecto no es importante
-      this.borrador = false; // por defecto no es borrador
-      this.eliminado = false; // por defecto no eliminado
-      this.favorito = false; //por defecto no esta en fav
-  }*/
-
   //constructor con destinatarios
   public Email(String subject, String content, Contacto sender, List<Contacto> recipients) {
     this.subject = subject;
@@ -43,7 +29,6 @@ public class Email implements IMarcador {
     this.borrador = false;
     this.eliminado = false;
     this.favorito = false;
-    
   }
   
   //constructor para borrador 
