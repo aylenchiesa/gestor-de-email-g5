@@ -24,10 +24,6 @@ public class GestorContactos {
         contacto.setEmail(nuevoEmail);
     }
 
-    /*public List<Contacto> getContactos() {
-        return contactos;
-    }*/
-    
     public int size() {
         return contactos.size();
     }
