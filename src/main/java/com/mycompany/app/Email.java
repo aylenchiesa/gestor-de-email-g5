@@ -14,7 +14,7 @@ public class Email implements IMarcador {
   private boolean leido; //por defecto falso
   private boolean important;
   private boolean borrador;
-  public boolean eliminado;
+  private boolean eliminado;
   private boolean favorito;
 
   //constructor con destinatarios
