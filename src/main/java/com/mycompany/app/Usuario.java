@@ -5,7 +5,7 @@ import java.util.List;
 public class Usuario {
   private String nombre;
   private String email;
-  private Contacto contacto; // Relación Usuario -> Contacto
+  private Contacto contacto; // relación usuario - contacto
 
   public Usuario(String nombre, String email, Contacto contacto) {
       this.nombre = nombre;
